@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>James Portman — Painter, Writer & AI Developer</title>
+<meta name="description" content="James Portman — painter, writer, screenwriter, microdrama and AI developer. Original Georgian Bay paintings, the Baylight: After Image thriller, and shipped web apps." />
+<meta property="og:title" content="James Portman — Painter, Writer & AI Developer" />
+<meta property="og:description" content="A one-person studio working across canvas, page, and screen." />
+<meta property="og:type" content="website" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#F3EFE7;
+    --paper-2:#FAF7F0;
+    --ink:#2A2724;
+    --ink-soft:#5C574F;
+    --ink-faint:#8A847A;
+    --line:#DAD4C8;
+    --accent:#B4502A;
+    --accent-soft:#C9764F;
+    --serif:"Fraunces", Georgia, "Times New Roman", serif;
+    --sans:"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(rgba(120,108,90,0.05) 1px, transparent 1px);
+    background-size:4px 4px;
+  }
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 28px;}
+
+  /* nav */
+  nav{position:sticky;top:0;z-index:10;background:rgba(243,239,231,0.85);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
+  nav .wrap{display:flex;justify-content:space-between;align-items:center;height:62px;}
+  nav .brand{font-family:var(--serif);font-size:19px;font-weight:500;letter-spacing:0.01em;}
+  nav .links{display:flex;gap:26px;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-soft);}
+  nav .links a:hover{color:var(--accent);}
+  @media(max-width:560px){nav .links{display:none;}}
+
+  /* hero */
+  header.hero{padding:96px 0 72px;}
+  .hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(44px,9vw,84px);line-height:0.98;letter-spacing:-0.01em;}
+  .hero .tagline{margin-top:22px;font-size:clamp(13px,2.2vw,15px);letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);font-weight:500;}
+  .hero .statement{margin-top:26px;max-width:560px;font-size:clamp(17px,2.6vw,20px);color:var(--ink-soft);font-family:var(--serif);font-weight:400;line-height:1.5;}
+  .hero .cta{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;padding:12px 20px;border:1px solid var(--ink);border-radius:2px;transition:all .2s;}
+  .btn:hover{background:var(--ink);color:var(--paper);}
+  .btn.accent{border-color:var(--accent);color:var(--accent);}
+  .btn.accent:hover{background:var(--accent);color:var(--paper-2);}
+
+  /* section label */
+  .sec-label{font-family:var(--serif);font-size:13px;letter-spacing:0.22em;text-transform:uppercase;color:var(--ink-faint);padding-bottom:18px;border-bottom:1px solid var(--line);margin-bottom:40px;}
+
+  section{padding:36px 0;}
+
+  /* project entries */
+  .proj{display:grid;grid-template-columns:300px 1fr;gap:38px;align-items:start;padding:40px 0;border-bottom:1px solid var(--line);}
+  .proj:first-of-type{padding-top:0;}
+  .proj .thumb{aspect-ratio:4/3;border-radius:3px;overflow:hidden;border:1px solid var(--line);background:var(--paper-2);}
+  .proj .thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+  .proj .num{font-family:var(--serif);font-size:14px;color:var(--accent);letter-spacing:0.1em;}
+  .proj h3{font-family:var(--serif);font-weight:500;font-size:30px;line-height:1.05;margin:6px 0 8px;}
+  .proj .meta{font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:16px;}
+  .proj .meta b{color:var(--ink-soft);font-weight:500;}
+  .proj p{color:var(--ink-soft);font-size:16px;max-width:540px;}
+  .proj .stack{margin-top:16px;display:flex;flex-wrap:wrap;gap:7px;}
+  .proj .stack span{font-size:11px;letter-spacing:0.03em;color:var(--ink-soft);background:var(--paper-2);border:1px solid var(--line);border-radius:2px;padding:4px 9px;}
+  .proj .visit{margin-top:20px;display:inline-flex;align-items:center;gap:6px;font-size:13px;letter-spacing:0.05em;color:var(--accent);border-bottom:1px solid var(--accent-soft);padding-bottom:2px;}
+  .proj .visit:hover{color:var(--ink);border-color:var(--ink);}
+
+  /* worldcup tile */
+  .wc-tile{aspect-ratio:4/3;border-radius:3px;border:1px solid var(--line);background:#161a20;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#e8eef5;}
+  .wc-tile .ball{font-size:40px;}
+  .wc-tile .flags{font-size:26px;letter-spacing:4px;}
+  .wc-tile .yr{font-size:11px;letter-spacing:0.25em;text-transform:uppercase;color:#7f8a99;}
+
+  @media(max-width:680px){
+    .proj{grid-template-columns:1fr;gap:20px;}
+    .proj .thumb,.wc-tile{max-width:340px;}
+  }
+
+  /* about */
+  .about{display:grid;grid-template-columns:220px 1fr;gap:44px;align-items:start;}
+  .about .photo{border-radius:3px;overflow:hidden;border:1px solid var(--line);}
+  .about .photo img{width:100%;display:block;}
+  .about p{color:var(--ink-soft);font-size:17px;margin-bottom:18px;max-width:560px;}
+  .about p.lead{font-family:var(--serif);font-size:21px;color:var(--ink);line-height:1.45;font-weight:400;}
+  @media(max-width:680px){.about{grid-template-columns:1fr;gap:24px;}.about .photo{max-width:200px;}}
+
+  /* contact / footer */
+  footer{background:var(--ink);color:var(--paper);margin-top:40px;padding:64px 0 40px;}
+  footer .sec-label{color:#9b948a;border-color:rgba(255,255,255,0.12);}
+  footer h2{font-family:var(--serif);font-weight:500;font-size:clamp(30px,6vw,52px);line-height:1.02;margin-bottom:24px;}
+  footer a.mail{font-family:var(--serif);font-size:clamp(20px,4vw,30px);color:var(--accent-soft);border-bottom:1px solid rgba(201,118,79,0.4);}
+  footer a.mail:hover{color:var(--paper);border-color:var(--paper);}
+  footer .social{margin-top:36px;display:flex;gap:24px;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;}
+  footer .social a{color:#cfc8bd;display:inline-flex;align-items:center;gap:7px;}
+  footer .social a:hover{color:var(--accent-soft);}
+  footer .copyright{margin-top:56px;font-size:12px;color:#7d766c;letter-spacing:0.04em;}
+  .ico{width:15px;height:15px;vertical-align:-2px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <span class="brand">James Portman</span>
+    <div class="links">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <h1>James<br />Portman</h1>
+    <div class="tagline">Painter · Writer · Screenwriter · Microdrama &amp; AI Developer</div>
+    <p class="statement">A one-person studio working across canvas, page, and screen — landscapes in oil, near-future fiction, and full-stack apps shipped end to end.</p>
+    <div class="cta">
+      <a class="btn accent" href="#work">View work</a>
+      <a class="btn" href="#contact">Get in touch</a>
+    </div>
+  </div>
+</header>
+
+<section id="work">
+  <div class="wrap">
+    <div class="sec-label">Selected work</div>
+
+    <article class="proj">
+      <div class="thumb">
+        <img src="https://www.georgianartist.com/paintings/singhampton-winter.jpg" alt="Singhampton: Winter — an original Georgian Bay landscape painting" loading="lazy" />
+      </div>
+      <div>
+        <div class="num">01 / Painting</div>
+        <h3>Georgian Bay Artists</h3>
+        <div class="meta"><b>Painter &amp; Founder</b> · Original canvas &amp; prints · 2025 – Present</div>
+        <p>An online gallery of my original Canadian landscape paintings and photographs of Georgian Bay and the surrounding Ontario region — Beaver River, Blue Mountain, Manitoulin, Owen Sound — sold as originals and gallery-wrapped, ready-to-hang prints. I rebuilt the storefront from Squarespace to a custom Next.js stack, taking hosting from $45/mo to $0.</p>
+        <div class="stack"><span>Original art</span><span>Next.js 16</span><span>Resend</span><span>Sharp</span><span>46 tests</span></div>
+        <a class="visit" href="https://www.georgianartist.com" target="_blank" rel="noopener">Visit georgianartist.com →</a>
+      </div>
+    </article>
+
+    <article class="proj">
+      <div class="thumb">
+        <img src="https://baylight.city/assets/cover.jpg" alt="Baylight: After Image cover — a near-future surveillance thriller" loading="lazy" />
+      </div>
+      <div>
+        <div class="num">02 / Writing &amp; Screen</div>
+        <h3>Baylight: After Image</h3>
+        <div class="meta"><b>Author · Screenwriter · Microdrama Creator</b> · 2026</div>
+        <p>A near-future surveillance thriller — <em>“the city doesn't punish, it helps”</em> — told across three forms: a 23-chapter novella, a full audiobook, and a vertical-cut microdrama series. The novella is on Amazon; Episode 1 of the series is live with Episode 2 in production. The whole world lives on a custom, hand-coded static site I built as its hub.</p>
+        <div class="stack"><span>Novella</span><span>Audiobook</span><span>Microdrama</span><span>Video editing</span><span>Static site</span></div>
+        <a class="visit" href="https://baylight.city" target="_blank" rel="noopener">Visit baylight.city →</a>
+      </div>
+    </article>
+
+    <article class="proj">
+      <div class="wc-tile" role="img" aria-label="2026 World Cup Pool app — USA, Mexico and Canada">
+        <div class="ball">⚽</div>
+        <div class="flags">🇺🇸 🇲🇽 🇨🇦</div>
+        <div class="yr">2026 · Bracket Pool</div>
+      </div>
+      <div>
+        <div class="num">03 / Code</div>
+        <h3>2026 World Cup Pool</h3>
+        <div class="meta"><b>Designer &amp; Developer</b> · Web app · 2026</div>
+        <p>A solo-built, open-source bracket-pool app for the 2026 FIFA World Cup (USA · Mexico · Canada). Create a pool, share a join code with friends, and the leaderboard updates as results come in. Shipped end to end — and it ships with a public <em>/architecture</em> page written for engineers.</p>
+        <div class="stack"><span>Next.js 16</span><span>React 19</span><span>TypeScript</span><span>Tailwind v4</span><span>Prisma 6</span><span>Neon Postgres</span></div>
+        <a class="visit" href="https://worldcup-pool-ebon.vercel.app/" target="_blank" rel="noopener">Visit the app →</a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="sec-label">About</div>
+    <div class="about">
+      <div class="photo"><img src="assets/headshot.jpg" alt="Portrait of James Portman" /></div>
+      <div>
+        <p class="lead">I'm a multidisciplinary creator working across canvas, page, and screen.</p>
+        <p>I paint original landscapes of Georgian Bay and the Ontario region, write near-future fiction, and design and ship full-stack web apps — increasingly with AI in the loop. My recent work spans an online painting gallery, <em>Baylight: After Image</em> (a story told as book, audiobook, and microdrama), and a solo-built World Cup bracket-pool app.</p>
+        <p>Whether the medium is oil, prose, or code, the throughline is the same: make the thing end to end, and sweat the craft.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="sec-label">Contact</div>
+    <h2>Let's make something.</h2>
+    <a class="mail" href="mailto:james@portman.ca">james@portman.ca</a>
+    <div class="social">
+      <a href="https://www.linkedin.com/in/jamesportman/" target="_blank" rel="noopener">
+        <svg class="ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 9.67H5.67V18h2.67V9.67zM7 6.33a1.55 1.55 0 1 0 0 3.1 1.55 1.55 0 0 0 0-3.1zM18.33 18v-4.57c0-2.4-1.28-3.52-2.99-3.52-1.38 0-2 .76-2.34 1.29v-1.1h-2.67V18h2.67v-4.39c0-1.18.22-2.32 1.68-2.32 1.44 0 1.46 1.35 1.46 2.4V18h2.52z"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://github.com/JamesPortman" target="_blank" rel="noopener">
+        <svg class="ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.94.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg>
+        GitHub
+      </a>
+      <a href="mailto:james@portman.ca">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+        Email
+      </a>
+    </div>
+    <div class="copyright">© 2026 James Portman · Painter, Writer &amp; AI Developer · Built end to end.</div>
+  </div>
+</footer>
+
+</body>
+</html>

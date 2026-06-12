@@ -1,0 +1,7 @@
+# Local source files — not part of the published site
+PLAN.md
+New Projects.png
+Jim photo pict.jpg
+.DS_Store
+node_modules/
+.vercel
