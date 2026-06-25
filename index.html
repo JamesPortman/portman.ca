@@ -8,6 +8,26 @@
 <meta property="og:title" content="James Portman — Painter, Writer & Screenwriter" />
 <meta property="og:description" content="A one-person studio working across canvas, page, and screen." />
 <meta property="og:type" content="website" />
+<meta property="og:url" content="https://portman.ca/" />
+<meta property="og:image" content="https://portman.ca/assets/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="James Portman — Painter, Writer & Screenwriter" />
+<meta name="twitter:description" content="A one-person studio working across canvas, page, and screen." />
+<meta name="twitter:image" content="https://portman.ca/assets/og-image.png" />
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+<!-- Google Analytics 4 (Consent Mode v2) — replace G-XXXXXXXXXX with your Measurement ID -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',wait_for_update:500});
+  var GA_ID='G-XXXXXXXXXX';
+  if(window.localStorage && localStorage.getItem('pc_consent')==='granted'){gtag('consent','update',{analytics_storage:'granted'});}
+  (function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID;document.head.appendChild(s);})();
+  gtag('js', new Date());
+  gtag('config', GA_ID);
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -67,7 +87,7 @@
   .proj .thumb{aspect-ratio:4/3;border-radius:3px;overflow:hidden;border:1px solid var(--line);background:var(--paper-2);}
   .proj .thumb img{width:100%;height:100%;object-fit:cover;display:block;}
   .proj .num{font-family:var(--serif);font-size:14px;color:var(--accent);letter-spacing:0.1em;}
-  .proj h3{font-family:var(--serif);font-weight:500;font-size:30px;line-height:1.05;margin:6px 0 8px;}
+  .proj h2{font-family:var(--serif);font-weight:500;font-size:30px;line-height:1.05;margin:6px 0 8px;}
   .proj .meta{font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:16px;}
   .proj .meta b{color:var(--ink-soft);font-weight:500;}
   .proj p{color:var(--ink-soft);font-size:16px;max-width:540px;}
@@ -106,6 +126,14 @@
   footer .social a:hover{color:var(--accent-soft);}
   footer .copyright{margin-top:56px;font-size:12px;color:#7d766c;letter-spacing:0.04em;}
   .ico{width:15px;height:15px;vertical-align:-2px;}
+
+  .consent{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--ink);color:var(--paper);padding:14px 20px;display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;font-size:13px;}
+  .consent p{margin:0;max-width:640px;color:#cfc8bd;}
+  .consent a{color:var(--accent-soft);}
+  .consent-btns{display:flex;gap:10px;flex:none;}
+  .consent button{font-family:var(--sans);font-size:13px;letter-spacing:0.02em;padding:8px 16px;border-radius:3px;cursor:pointer;border:1px solid #5a554d;background:transparent;color:var(--paper);}
+  .consent button#consent-accept{background:var(--accent);border-color:var(--accent);color:var(--paper-2);}
+  .consent[hidden]{display:none;}
 </style>
 </head>
 <body>
@@ -137,11 +165,11 @@
 
     <article class="proj">
       <div class="thumb">
-        <img src="https://www.georgianartist.com/paintings/singhampton-winter.jpg" alt="Singhampton: Winter — an original Georgian Bay landscape painting" loading="lazy" />
+        <img src="assets/georgian-hero.jpg" alt="Singhampton: Winter — an original Georgian Bay landscape painting" loading="lazy" />
       </div>
       <div>
         <div class="num">01 / Painting</div>
-        <h3>Georgian Bay Artists</h3>
+        <h2>Georgian Bay Artists</h2>
         <div class="meta"><b>Painter &amp; Founder</b> · Original canvas &amp; prints · 2025 – Present</div>
         <p>An online gallery of my original Canadian landscape paintings and photographs of Georgian Bay and the surrounding Ontario region — Beaver River, Blue Mountain, Manitoulin, Owen Sound — sold as originals and gallery-wrapped, ready-to-hang prints. I rebuilt the storefront from Squarespace to a custom Next.js stack, taking hosting from $45/mo to $0.</p>
         <div class="stack"><span>Original art</span><span>Own your gallery</span><span>No monthly fees</span></div>
@@ -151,31 +179,31 @@
 
     <article class="proj">
       <div class="thumb">
-        <img src="https://baylight.city/assets/cover.jpg" alt="Baylight: After Image cover — a near-future surveillance thriller" loading="lazy" />
+        <img src="assets/baylight-hero.jpg" alt="Baylight: After Image cover — a near-future surveillance thriller" loading="lazy" />
       </div>
       <div>
         <div class="num">02 / Writing &amp; Screen</div>
-        <h3>Baylight: After Image</h3>
+        <h2>Baylight: After Image</h2>
         <div class="meta"><b>Author · Screenwriter · Microdrama Creator</b> · 2026</div>
         <p>A near-future surveillance thriller — <em>“the city doesn't punish, it helps”</em> — told across three forms: a 23-chapter novella, a full audiobook, and a microdrama series. The novella is on Amazon; Episode 1 of the series is live with Episode 2 in production. The whole world lives on a custom, hand-coded static site I built as its hub.</p>
         <div class="stack"><span>Microdrama</span><span>Novella</span><span>Audiobook</span></div>
         <a class="visit" href="https://baylight.city" target="_blank" rel="noopener">Visit baylight.city →</a>
+        <a class="visit" href="https://github.com/JamesPortman/baylight-city" target="_blank" rel="noopener" style="margin-left:22px;">GitHub →</a>
       </div>
     </article>
 
     <article class="proj">
-      <div class="wc-tile" role="img" aria-label="2026 World Cup Pool app — USA, Mexico and Canada">
-        <div class="ball">⚽</div>
-        <div class="flags">🇺🇸 🇲🇽 🇨🇦</div>
-        <div class="yr">2026 · Bracket Pool</div>
+      <div class="thumb">
+        <img src="assets/worldcup-hero.png" alt="2026 World Cup Pool app — create a pool and share a join code with friends" loading="lazy" />
       </div>
       <div>
         <div class="num">03 / Code</div>
-        <h3>2026 World Cup Pool</h3>
+        <h2>2026 World Cup Pool</h2>
         <div class="meta"><b>Designer &amp; Developer</b> · Web app · 2026</div>
         <p>A solo-built, open-source bracket-pool app for the 2026 FIFA World Cup (USA · Mexico · Canada). Create a pool, share a join code with friends, and the leaderboard updates as results come in. Shipped end to end — and it ships with a public <em>/architecture</em> page written for engineers.</p>
         <div class="stack"><span>Free</span><span>Open Source</span><span>Invite by code</span><span>Live leaderboard</span></div>
         <a class="visit" href="https://worldcup-pool-ebon.vercel.app/" target="_blank" rel="noopener">Visit the app →</a>
+        <a class="visit" href="https://github.com/JamesPortman/worldcup-pool" target="_blank" rel="noopener" style="margin-left:22px;">GitHub →</a>
       </div>
     </article>
 
@@ -219,5 +247,29 @@
   </div>
 </footer>
 
+<div id="consent-banner" class="consent" hidden>
+  <p>This site uses Google Analytics cookies to understand visits. Nothing is tracked until you accept.</p>
+  <div class="consent-btns">
+    <button id="consent-decline" type="button">Decline</button>
+    <button id="consent-accept" type="button">Accept</button>
+  </div>
+</div>
+<script>
+  (function(){
+    var b=document.getElementById('consent-banner');
+    var stored=window.localStorage&&localStorage.getItem('pc_consent');
+    var gaReady=(typeof GA_ID!=='undefined')&&GA_ID.indexOf('XXXX')===-1;
+    if(!stored&&gaReady){b.hidden=false;}
+    document.getElementById('consent-accept').addEventListener('click',function(){
+      try{localStorage.setItem('pc_consent','granted');}catch(e){}
+      if(window.gtag)gtag('consent','update',{analytics_storage:'granted'});
+      b.hidden=true;
+    });
+    document.getElementById('consent-decline').addEventListener('click',function(){
+      try{localStorage.setItem('pc_consent','denied');}catch(e){}
+      b.hidden=true;
+    });
+  })();
+</script>
 </body>
 </html>

@@ -1,0 +1,9 @@
+{
+  "name": "portman-ca",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "google-auth-library": "^9.14.1"
+  }
+}
