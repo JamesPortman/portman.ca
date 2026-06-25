@@ -2,7 +2,7 @@
 // Credentials come from environment variables, never the code:
 //   ADMIN_USER, ADMIN_PASS
 export const config = {
-  matcher: ['/admin', '/admin/:path*', '/api/:path*'],
+  matcher: ['/admin', '/admin/:path*'],
 };
 
 export default function middleware(req) {
