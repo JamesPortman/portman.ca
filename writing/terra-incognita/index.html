@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Terra Incognita — building a multiplayer geography game in three days | James Portman</title>
+<meta name="description" content="Terra Incognita is a where-in-the-world guessing game with live 14-player rooms. Three days, 25 commits, 74 tests — and what the build taught me about shipping with an AI agent in the loop." />
+<link rel="canonical" href="https://portman.ca/writing/terra-incognita/" />
+<meta property="og:title" content="Terra Incognita — building a multiplayer geography game in three days" />
+<meta property="og:description" content="Three days, 25 commits, 74 tests. When the code gets cheap, verification becomes the job." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://portman.ca/writing/terra-incognita/" />
+<meta property="og:image" content="https://portman.ca/assets/terra-hero.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="900" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Terra Incognita — building a multiplayer geography game in three days" />
+<meta name="twitter:description" content="Three days, 25 commits, 74 tests. When the code gets cheap, verification becomes the job." />
+<meta name="twitter:image" content="https://portman.ca/assets/terra-hero.jpg" />
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+<!-- Google Analytics 4 (Consent Mode v2) -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',wait_for_update:500});
+  var GA_ID='G-M173XE4X93';
+  if(window.localStorage && localStorage.getItem('pc_consent')==='granted'){gtag('consent','update',{analytics_storage:'granted'});}
+  (function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID;document.head.appendChild(s);})();
+  gtag('js', new Date());
+  gtag('config', GA_ID);
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#F3EFE7;
+    --paper-2:#FAF7F0;
+    --ink:#2A2724;
+    --ink-soft:#5C574F;
+    --ink-faint:#8A847A;
+    --line:#DAD4C8;
+    --accent:#B4502A;
+    --accent-soft:#C9764F;
+    --serif:"Fraunces", Georgia, "Times New Roman", serif;
+    --sans:"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(rgba(120,108,90,0.05) 1px, transparent 1px);
+    background-size:4px 4px;
+  }
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 28px;}
+
+  /* nav */
+  nav{position:sticky;top:0;z-index:10;background:rgba(243,239,231,0.85);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
+  nav .wrap{display:flex;justify-content:space-between;align-items:center;height:62px;}
+  nav .brand{font-family:var(--serif);font-size:19px;font-weight:500;letter-spacing:0.01em;}
+  nav .links{display:flex;gap:26px;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-soft);}
+  nav .links a:hover{color:var(--accent);}
+  @media(max-width:560px){nav .links{display:none;}}
+
+  .btn{display:inline-flex;align-items:center;gap:8px;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;padding:12px 20px;border:1px solid var(--ink);border-radius:2px;transition:all .2s;}
+  .btn:hover{background:var(--ink);color:var(--paper);}
+  .btn.accent{border-color:var(--accent);color:var(--accent);}
+  .btn.accent:hover{background:var(--accent);color:var(--paper-2);}
+
+  section{padding:40px 0;}
+
+  /* article head */
+  .art-wrap{max-width:760px;margin:0 auto;padding:0 28px;}
+  header.post{padding:40px 0 0;}
+  .kicker{font-family:var(--serif);font-size:13px;letter-spacing:0.22em;text-transform:uppercase;color:var(--ink-faint);}
+  .back{display:inline-block;margin-bottom:22px;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-faint);}
+  .back:hover{color:var(--accent);}
+  h1{font-family:var(--serif);font-weight:500;font-size:clamp(30px,5.2vw,46px);line-height:1.06;margin:12px 0 0;}
+  .standfirst{margin-top:20px;font-family:var(--serif);font-size:clamp(18px,2.6vw,21px);line-height:1.5;color:var(--ink-soft);}
+  .byline{margin-top:22px;padding-top:18px;border-top:1px solid var(--line);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-faint);}
+  .byline b{color:var(--ink-soft);font-weight:500;}
+
+  figure.hero-shot{margin:34px 0 0;}
+  figure.hero-shot img{width:100%;display:block;border:1px solid var(--line);border-radius:3px;}
+  figure.hero-shot figcaption{margin-top:10px;font-size:12px;letter-spacing:0.04em;color:var(--ink-faint);}
+
+  /* prose */
+  .prose{padding:40px 0;}
+  .prose p{color:var(--ink-soft);font-size:17px;margin-bottom:20px;}
+  .prose p.lead{font-family:var(--serif);font-size:21px;color:var(--ink);line-height:1.45;}
+  .prose h2{font-family:var(--serif);font-weight:500;font-size:26px;line-height:1.15;color:var(--ink);margin:40px 0 14px;}
+  .prose h3{font-family:var(--serif);font-weight:500;font-size:20px;line-height:1.2;color:var(--ink);margin:32px 0 10px;}
+  .prose strong{color:var(--ink);font-weight:600;}
+  .prose em{font-style:italic;}
+  .prose a.inline{color:var(--accent);border-bottom:1px solid var(--accent-soft);padding-bottom:1px;}
+  .prose a.inline:hover{color:var(--ink);border-color:var(--ink);}
+  .prose code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:14px;background:var(--paper-2);border:1px solid var(--line);border-radius:2px;padding:1px 5px;color:var(--ink);}
+  blockquote{margin:32px 0;padding-left:22px;border-left:2px solid var(--accent-soft);font-family:var(--serif);font-size:21px;line-height:1.45;color:var(--ink);}
+
+  /* facts strip */
+  .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:34px 0;}
+  .facts div{background:var(--paper-2);padding:16px 18px;}
+  .facts .n{font-family:var(--serif);font-size:26px;line-height:1;color:var(--accent);}
+  .facts .l{margin-top:6px;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-faint);}
+  @media(max-width:620px){.facts{grid-template-columns:repeat(2,1fr);}}
+
+  .endcta{margin-top:44px;padding-top:32px;border-top:1px solid var(--line);}
+  .endcta h2{font-family:var(--serif);font-weight:500;font-size:28px;margin-bottom:14px;}
+  .endcta p{color:var(--ink-soft);font-size:17px;margin-bottom:22px;}
+  .endcta .cta{display:flex;gap:14px;flex-wrap:wrap;}
+
+  /* contact / footer */
+  footer{background:var(--ink);color:var(--paper);padding:40px 0;margin-top:40px;}
+  .sec-label{font-family:var(--serif);font-size:13px;letter-spacing:0.22em;text-transform:uppercase;color:var(--ink-faint);padding-bottom:18px;border-bottom:1px solid var(--line);margin-bottom:40px;}
+  footer .sec-label{color:#9b948a;border-color:rgba(255,255,255,0.12);}
+  footer h2{font-family:var(--serif);font-weight:500;font-size:clamp(30px,6vw,52px);line-height:1.02;margin-bottom:24px;}
+  footer a.mail{font-family:var(--serif);font-size:clamp(20px,4vw,30px);color:var(--accent-soft);border-bottom:1px solid rgba(201,118,79,0.4);}
+  footer a.mail:hover{color:var(--paper);border-color:var(--paper);}
+  footer .social{margin-top:36px;display:flex;gap:24px;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;}
+  footer .social a{color:#cfc8bd;display:inline-flex;align-items:center;gap:7px;}
+  footer .social a:hover{color:var(--accent-soft);}
+  footer .copyright{margin-top:56px;font-size:12px;color:#7d766c;letter-spacing:0.04em;}
+  .ico{width:15px;height:15px;vertical-align:-2px;}
+
+  .consent{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--ink);color:var(--paper);padding:14px 20px;display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;font-size:13px;}
+  .consent p{margin:0;max-width:640px;color:#cfc8bd;}
+  .consent a{color:var(--accent-soft);}
+  .consent-btns{display:flex;gap:10px;flex:none;}
+  .consent button{font-family:var(--sans);font-size:13px;letter-spacing:0.02em;padding:8px 16px;border-radius:3px;cursor:pointer;border:1px solid #5a554d;background:transparent;color:var(--paper);}
+  .consent button#consent-accept{background:var(--accent);border-color:var(--accent);color:var(--paper-2);}
+  .consent[hidden]{display:none;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="/">James Portman</a>
+    <div class="links">
+      <a href="/#work">Work</a>
+      <a href="/#about">About</a>
+      <a href="/#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<article>
+
+<header class="post">
+  <div class="art-wrap">
+    <a class="back" href="/#work">← Work</a>
+    <div class="kicker">Build note · Code</div>
+    <h1>Terra Incognita: a multiplayer geography game, built in three days</h1>
+    <p class="standfirst">A photo of a real place, a world map, and five thousand points riding on how close your pin lands. The game took a weekend. What it taught me about building with an AI agent in the loop is the part worth writing down.</p>
+    <div class="byline"><b>James Portman</b> · July 2026 · 4 min read</div>
+
+    <figure class="hero-shot">
+      <img src="/assets/terra-hero.jpg" alt="Terra Incognita gameplay: a photograph of Ha Long Bay beside a dark world map waiting for a pin" />
+      <figcaption>Round one. The photo is real, the map is yours, and the clock is running.</figcaption>
+    </figure>
+  </div>
+</header>
+
+<div class="prose">
+  <div class="art-wrap">
+
+    <p class="lead">Terra Incognita is a where-in-the-world guessing game. You get a photo of a real place — or a drop into Street View — and you put a pin on the world map. The closer you land, the more of the 5,000 points per round you keep.</p>
+
+    <p>Play it solo. Take the Weekly Expedition, where everyone gets the same five locations and the board resets on Monday. Or open a live room: the map goes up on the big screen, up to fourteen people join from their phones with a four-letter code, everyone guesses against one clock, and the reveal shows every pin at once. It is the closest thing I have made to a party game.</p>
+
+    <p>Empty folder to production took three days.</p>
+
+    <div class="facts">
+      <div><div class="n">3</div><div class="l">Days</div></div>
+      <div><div class="n">25</div><div class="l">Commits</div></div>
+      <div><div class="n">74</div><div class="l">Tests</div></div>
+      <div><div class="n">14</div><div class="l">Players/room</div></div>
+    </div>
+
+    <h2>The bottleneck moved</h2>
+
+    <p>I have been shipping software for a long time, and the constraint was always typing. You knew roughly what you wanted; the cost was the hours between knowing and having. Work with an AI coding agent and that cost falls close to zero — and the moment it does, a different constraint walks to the front of the queue.</p>
+
+    <blockquote>The new bottleneck is specification and verification. Saying precisely what you want, and proving that what came back actually does it.</blockquote>
+
+    <p>Everything below is a version of that.</p>
+
+    <h2>Make the tests the gate, not a chore</h2>
+
+    <p>Terra Incognita ships with 55 unit tests and 19 end-to-end browser tests. Nothing reaches production unless both suites pass: GitHub Actions runs them and only then calls the deploy. Vercel's automatic git deploy is switched off on purpose, so a red suite cannot ship — not "shouldn't", cannot.</p>
+
+    <p>That isn't discipline for its own sake. When code arrives faster than you can read it, tests stop being a quality ritual and become the only honest signal you have left. Velocity without them is just a faster way to be wrong.</p>
+
+    <h2>The agent doesn't see what your users see</h2>
+
+    <p>My favourite failure of the build. The browser pane the agent uses to preview a page reports itself as hidden, and Google Maps politely declines to render into a hidden document. So the guess map came back as a flat grey box in every screenshot I was shown, while being perfectly fine for every actual human.</p>
+
+    <p>The fix wasn't code. It was one line in the repo's instructions file: don't trust the preview for maps, verify with a real browser test. That generalises. When you find a way your tooling lies to you, the durable fix is writing it down where the next session will read it — not remembering it yourself.</p>
+
+    <h2>Write down the contracts, especially the invisible ones</h2>
+
+    <p>The game embeds its location list in the page, and the server scores your guess against the same list by position. Two copies, one order. Reorder either and every score silently becomes wrong — no error, no crash, no red anywhere. Just quietly incorrect results and a leaderboard nobody can trust.</p>
+
+    <p>So the rule sits at the top of the repo instructions in capitals: that array is <strong>append-only</strong>. The constraints that hurt you are never the ones a type checker catches. They are the agreements between two files that nothing enforces, and if they live only in your head they last exactly as long as your memory of them.</p>
+
+    <h2>Constraints do design work for you</h2>
+
+    <p>The whole game is a single self-contained HTML file. The world map is inline SVG generated from GeoJSON, the photos are static assets, the built page is about 370KB, and there is no framework anywhere in it. Multiplayer lives in a handful of small serverless functions — Redis holds live room state with a four-hour expiry, Postgres holds the all-time leaderboard.</p>
+
+    <p>I didn't pick that because it was minimal. I picked it because one file is trivially verifiable, costs nothing to host, and is very hard to accidentally over-engineer. The constraint made several decisions for me before I got to them.</p>
+
+    <h2>The honest part</h2>
+
+    <p>Three days is real. So is the fact that the last of them was barely about features. It was an accessibility pass, chasing test flakiness caused by external network calls, keeping the architecture page honest, and fixing the defaults so a new player lands somewhere sensible rather than somewhere random.</p>
+
+    <p>That ratio feels about right, and I suspect it is the actual shape of this work now. Generating the thing is fast. Making it correct, accessible, documented and safe to change is where the days go — and that part is still judgment, not autocomplete.</p>
+
+    <p>Same as oil paint, really. Anyone can cover a canvas. Sweating the craft is the whole job.</p>
+
+    <div class="endcta">
+      <h2>Go and lose to your colleagues</h2>
+      <p>Open a live room, send the code round the office, and find out who can genuinely put a pin within 50km of Ha Long Bay. Five minutes, and the leaderboard is permanent.</p>
+      <div class="cta">
+        <a class="btn accent" href="https://terra-incognita-amber.vercel.app" target="_blank" rel="noopener">Play Terra Incognita</a>
+        <a class="btn" href="https://terra-incognita-amber.vercel.app/architecture" target="_blank" rel="noopener">How it's built</a>
+        <a class="btn" href="https://github.com/JamesPortman/terra-incognita" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</article>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="sec-label">Contact</div>
+    <h2>Let's make something.</h2>
+    <a class="mail" href="mailto:james@portman.ca">james@portman.ca</a>
+    <div class="social">
+      <a href="https://www.linkedin.com/in/jamesportman/" target="_blank" rel="noopener">
+        <svg class="ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 9.67H5.67V18h2.67V9.67zM7 6.33a1.55 1.55 0 1 0 0 3.1 1.55 1.55 0 0 0 0-3.1zM18.33 18v-4.57c0-2.4-1.28-3.52-2.99-3.52-1.38 0-2 .76-2.34 1.29v-1.1h-2.67V18h2.67v-4.39c0-1.18.22-2.32 1.68-2.32 1.44 0 1.46 1.35 1.46 2.4V18h2.52z"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://github.com/JamesPortman" target="_blank" rel="noopener">
+        <svg class="ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.94.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg>
+        GitHub
+      </a>
+      <a href="mailto:james@portman.ca">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+        Email
+      </a>
+    </div>
+    <div class="copyright">© 2026 James Portman</div>
+  </div>
+</footer>
+
+<div id="consent-banner" class="consent" hidden>
+  <p>This site uses Google Analytics cookies to understand visits. Nothing is tracked until you accept.</p>
+  <div class="consent-btns">
+    <button id="consent-decline" type="button">Decline</button>
+    <button id="consent-accept" type="button">Accept</button>
+  </div>
+</div>
+<script>
+  (function(){
+    var b=document.getElementById('consent-banner');
+    var stored=window.localStorage&&localStorage.getItem('pc_consent');
+    var gaReady=(typeof GA_ID!=='undefined')&&GA_ID.indexOf('XXXX')===-1;
+    if(!stored&&gaReady){b.hidden=false;}
+    document.getElementById('consent-accept').addEventListener('click',function(){
+      try{localStorage.setItem('pc_consent','granted');}catch(e){}
+      if(window.gtag)gtag('consent','update',{analytics_storage:'granted'});
+      b.hidden=true;
+    });
+    document.getElementById('consent-decline').addEventListener('click',function(){
+      try{localStorage.setItem('pc_consent','denied');}catch(e){}
+      b.hidden=true;
+    });
+  })();
+</script>
+</body>
+</html>
