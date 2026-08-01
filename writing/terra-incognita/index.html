@@ -65,7 +65,13 @@
   nav .brand{font-family:var(--serif);font-size:19px;font-weight:500;letter-spacing:0.01em;}
   nav .links{display:flex;gap:26px;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-soft);}
   nav .links a:hover{color:var(--accent);}
-  @media(max-width:560px){nav .links{display:none;}}
+  @media(max-width:680px){
+    nav .wrap{flex-wrap:wrap;height:auto;padding-top:12px;padding-bottom:10px;gap:8px;}
+    nav .brand{flex:1 0 100%;}
+    nav .links{width:100%;gap:18px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px;}
+    nav .links::-webkit-scrollbar{display:none;}
+    nav .links a{white-space:nowrap;}
+  }
 
   .btn{display:inline-flex;align-items:center;gap:8px;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;padding:12px 20px;border:1px solid var(--ink);border-radius:2px;transition:all .2s;}
   .btn:hover{background:var(--ink);color:var(--paper);}
@@ -142,7 +148,10 @@
   <div class="wrap">
     <a class="brand" href="/">James Portman</a>
     <div class="links">
-      <a href="/#work">Work</a>
+      <a href="/#apps">Apps</a>
+      <a href="/#video">Video</a>
+      <a href="/#novels">Novels</a>
+      <a href="/#paintings">Paintings</a>
       <a href="/#about">About</a>
       <a href="/#contact">Contact</a>
     </div>
@@ -153,7 +162,7 @@
 
 <header class="post">
   <div class="art-wrap">
-    <a class="back" href="/#work">← Work</a>
+    <a class="back" href="/#apps">← Apps</a>
     <div class="kicker">Build note · Code</div>
     <h1>Terra Incognita: a multiplayer geography game, built in three days</h1>
     <p class="standfirst">A photo of a real place, a world map, and five thousand points riding on how close your pin lands. The game took a weekend. What it taught me about building with an AI agent in the loop is the part worth writing down.</p>

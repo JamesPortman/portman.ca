@@ -64,7 +64,14 @@
   nav .brand{font-family:var(--serif);font-size:19px;font-weight:500;letter-spacing:0.01em;}
   nav .links{display:flex;gap:26px;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-soft);}
   nav .links a:hover{color:var(--accent);}
-  @media(max-width:560px){nav .links{display:none;}}
+  nav .links a.active{color:var(--accent);}
+  @media(max-width:680px){
+    nav .wrap{flex-wrap:wrap;height:auto;padding-top:12px;padding-bottom:10px;gap:8px;}
+    nav .brand{flex:1 0 100%;}
+    nav .links{width:100%;gap:18px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px;}
+    nav .links::-webkit-scrollbar{display:none;}
+    nav .links a{white-space:nowrap;}
+  }
 
   /* hero */
   header.hero{padding:40px 0;}
@@ -79,11 +86,13 @@
   /* section label */
   .sec-label{font-family:var(--serif);font-size:13px;letter-spacing:0.22em;text-transform:uppercase;color:var(--ink-faint);padding-bottom:18px;border-bottom:1px solid var(--line);margin-bottom:40px;}
 
-  section{padding:40px 0;}
+  section{padding:40px 0;scroll-margin-top:74px;}
 
   /* project entries */
   .proj{display:grid;grid-template-columns:300px 1fr;gap:38px;align-items:start;padding:40px 0;border-bottom:1px solid var(--line);}
   .proj:first-of-type{padding-top:0;}
+  .proj[hidden]{display:none;}
+  .proj.is-first{padding-top:0;}
   .proj .thumb{aspect-ratio:4/3;border-radius:3px;overflow:hidden;border:1px solid var(--line);background:var(--paper-2);}
   .proj .thumb img{width:100%;height:100%;object-fit:cover;display:block;}
   .proj .num{font-family:var(--serif);font-size:14px;color:var(--accent);letter-spacing:0.1em;}
@@ -140,9 +149,12 @@
 
 <nav>
   <div class="wrap">
-    <span class="brand">James Portman</span>
+    <a class="brand" href="/">James Portman</a>
     <div class="links">
-      <a href="#work">Work</a>
+      <a href="#apps" data-cat="apps">Apps</a>
+      <a href="#video" data-cat="video">Video</a>
+      <a href="#novels" data-cat="novels">Novels</a>
+      <a href="#paintings" data-cat="paintings">Paintings</a>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
     </div>
@@ -151,7 +163,7 @@
 
 <header class="hero">
   <div class="wrap">
-    <h1 class="tagline">Microdramas · Screenplays · Novels · Paintings</h1>
+    <h1 class="tagline">Apps, Video, Novels, Paintings</h1>
     <p class="statement">A one-person studio working across canvas, page, and screen — landscapes in oil, near-future fiction, and full-stack apps shipped end to end.</p>
     <div class="cta">
       <a class="btn accent" href="#work">View work</a>
@@ -163,12 +175,12 @@
 <section id="work">
   <div class="wrap">
 
-    <article class="proj">
+    <article class="proj" data-cats="paintings">
       <div class="thumb">
         <img src="assets/georgian-hero.jpg" alt="Singhampton: Winter — an original Georgian Bay landscape painting" loading="lazy" />
       </div>
       <div>
-        <div class="num">01 / Painting</div>
+        <div class="num">01 / Paintings</div>
         <h2>Georgian Bay Artists</h2>
         <div class="meta"><b>Painter &amp; Founder</b> · Original canvas &amp; prints · 2025 – Present</div>
         <p>An online gallery of my original Canadian landscape paintings and photographs of Georgian Bay and the surrounding Ontario region — Beaver River, Blue Mountain, Manitoulin, Owen Sound — sold as originals and gallery-wrapped, ready-to-hang prints. I rebuilt the storefront from Squarespace to a custom Next.js stack, taking hosting from $45/mo to $0.</p>
@@ -177,12 +189,12 @@
       </div>
     </article>
 
-    <article class="proj">
+    <article class="proj" data-cats="video novels">
       <div class="thumb">
         <img src="assets/baylight-hero.jpg" alt="Baylight: After Image cover — a near-future surveillance thriller" loading="lazy" />
       </div>
       <div>
-        <div class="num">02 / Writing &amp; Screen</div>
+        <div class="num">02 / Video &amp; Novels</div>
         <h2>Baylight: After Image</h2>
         <div class="meta"><b>Author · Screenwriter · Microdrama Creator</b> · 2026</div>
         <p>A near-future surveillance thriller — <em>“the city doesn't punish, it helps”</em> — told across three forms: a 23-chapter novella, a full audiobook, and a microdrama series. The novella is on Amazon; Episode 1 of the series is live with Episode 2 in production. The whole world lives on a custom, hand-coded static site I built as its hub.</p>
@@ -192,12 +204,12 @@
       </div>
     </article>
 
-    <article class="proj">
+    <article class="proj" data-cats="apps">
       <div class="thumb">
         <img src="assets/worldcup-hero.png" alt="2026 World Cup Pool app — create a pool and share a join code with friends" loading="lazy" />
       </div>
       <div>
-        <div class="num">03 / Code</div>
+        <div class="num">03 / Apps</div>
         <h2>2026 World Cup Pool</h2>
         <div class="meta"><b>Designer &amp; Developer</b> · Web app · 2026</div>
         <p>A solo-built, open-source bracket-pool app for the 2026 FIFA World Cup (USA · Mexico · Canada). Create a pool, share a join code with friends, and the leaderboard updates as results come in. Shipped end to end — and it ships with a public <em>/architecture</em> page written for engineers.</p>
@@ -207,12 +219,12 @@
       </div>
     </article>
 
-    <article class="proj">
+    <article class="proj" data-cats="apps">
       <div class="thumb">
         <img src="assets/terra-hero.jpg" alt="Terra Incognita — a photo of a real place beside a world map waiting for your pin" loading="lazy" />
       </div>
       <div>
-        <div class="num">04 / Code</div>
+        <div class="num">04 / Apps</div>
         <h2>Terra Incognita</h2>
         <div class="meta"><b>Designer &amp; Developer</b> · Web app · 2026</div>
         <p>A where-in-the-world guessing game: you get a photo of a real place — or a drop into Street View — and you put a pin on the world map. Play solo, take the Weekly Expedition, or host a live room where up to fourteen people join from their phones with a four-letter code and guess against one clock. Built in three days, end to end.</p>
@@ -270,6 +282,44 @@
     <button id="consent-accept" type="button">Accept</button>
   </div>
 </div>
+<script>
+  // Category tabs: filter the work list by #apps / #video / #novels / #paintings.
+  (function(){
+    var cats=['apps','video','novels','paintings'];
+    var links=[].slice.call(document.querySelectorAll('nav .links a[data-cat]'));
+    var projs=[].slice.call(document.querySelectorAll('.proj'));
+    var work=document.getElementById('work');
+
+    function apply(cat){
+      projs.forEach(function(p){
+        var list=' '+(p.getAttribute('data-cats')||'')+' ';
+        p.hidden=!!cat&&list.indexOf(' '+cat+' ')===-1;
+        p.classList.remove('is-first');
+      });
+      var visible=projs.filter(function(p){return !p.hidden;});
+      if(visible[0])visible[0].classList.add('is-first');
+      links.forEach(function(a){
+        var on=a.getAttribute('data-cat')===cat;
+        a.classList.toggle('active',on);
+        if(on){a.setAttribute('aria-current','true');}else{a.removeAttribute('aria-current');}
+      });
+      return visible.length;
+    }
+
+    function current(){
+      var h=location.hash.replace('#','');
+      return cats.indexOf(h)>-1?h:'';
+    }
+
+    apply(current()); // deep links (/#video) land filtered
+    if(current()&&work)work.scrollIntoView();
+
+    window.addEventListener('hashchange',function(){
+      apply(current());
+      if(current()&&work)work.scrollIntoView();
+    });
+  })();
+</script>
 <script>
   (function(){
     var b=document.getElementById('consent-banner');
