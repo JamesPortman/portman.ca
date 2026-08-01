@@ -124,16 +124,17 @@
   .about p.lead{font-family:var(--serif);font-size:21px;color:var(--ink);line-height:1.45;font-weight:400;}
   @media(max-width:680px){.about{grid-template-columns:1fr;gap:24px;}.about .photo{max-width:200px;}}
 
-  /* contact / footer */
-  footer{background:var(--ink);color:var(--paper);padding:40px 0;}
-  footer .sec-label{color:#9b948a;border-color:rgba(255,255,255,0.12);}
-  footer h2{font-family:var(--serif);font-weight:500;font-size:clamp(30px,6vw,52px);line-height:1.02;margin-bottom:24px;}
-  footer a.mail{font-family:var(--serif);font-size:clamp(20px,4vw,30px);color:var(--accent-soft);border-bottom:1px solid rgba(201,118,79,0.4);}
-  footer a.mail:hover{color:var(--paper);border-color:var(--paper);}
-  footer .social{margin-top:36px;display:flex;gap:24px;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;}
-  footer .social a{color:#cfc8bd;display:inline-flex;align-items:center;gap:7px;}
-  footer .social a:hover{color:var(--accent-soft);}
-  footer .copyright{margin-top:56px;font-size:12px;color:#7d766c;letter-spacing:0.04em;}
+  /* reach: contact details, inside About */
+  .reach{margin-top:44px;padding-top:34px;border-top:1px solid var(--line);}
+  .reach h2{font-family:var(--serif);font-weight:500;font-size:clamp(26px,4.4vw,36px);line-height:1.05;margin-bottom:18px;}
+  .reach a.mail{font-family:var(--serif);font-size:clamp(19px,3.2vw,26px);color:var(--accent);border-bottom:1px solid var(--accent-soft);}
+  .reach a.mail:hover{color:var(--ink);border-color:var(--ink);}
+  .reach .social{margin-top:28px;display:flex;gap:24px;flex-wrap:wrap;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;}
+  .reach .social a{color:var(--ink-soft);display:inline-flex;align-items:center;gap:7px;}
+  .reach .social a:hover{color:var(--accent);}
+
+  /* slim footer */
+  footer.site-foot{background:var(--ink);color:#9b948a;padding:20px 0;font-size:12px;letter-spacing:0.04em;}
   .ico{width:15px;height:15px;vertical-align:-2px;}
 
   .consent{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--ink);color:var(--paper);padding:14px 20px;display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;font-size:13px;}
@@ -151,23 +152,22 @@
   <div class="wrap">
     <a class="brand" href="/">James Portman</a>
     <div class="links">
-      <a href="#apps" data-cat="apps">Apps</a>
+      <a href="#apps" data-cat="apps">Claude Apps</a>
       <a href="#video" data-cat="video">Video</a>
       <a href="#novels" data-cat="novels">Novels</a>
       <a href="#paintings" data-cat="paintings">Paintings</a>
       <a href="#about">About</a>
-      <a href="#contact">Contact</a>
     </div>
   </div>
 </nav>
 
 <header class="hero">
   <div class="wrap">
-    <h1 class="tagline">Apps, Video, Novels, Paintings</h1>
+    <h1 class="tagline">Claude Apps, Video, Novels, Paintings</h1>
     <p class="statement">A one-person studio working across canvas, page, and screen — landscapes in oil, near-future fiction, and full-stack apps shipped end to end.</p>
     <div class="cta">
       <a class="btn accent" href="#work">View work</a>
-      <a class="btn" href="#contact">Get in touch</a>
+      <a class="btn" href="#about">Get in touch</a>
     </div>
   </div>
 </header>
@@ -175,12 +175,26 @@
 <section id="work">
   <div class="wrap">
 
-    <article class="proj" data-cats="paintings">
+    <article class="proj" data-cats="apps">
+      <div class="thumb">
+        <img src="assets/terra-hero.jpg" alt="Terra Incognita — a photo of a real place beside a world map waiting for your pin" loading="lazy" />
+      </div>
+      <div>
+        <h2>Terra Incognita</h2>
+        <div class="meta"><b>Designer &amp; Developer</b> · Web app · 2026</div>
+        <p>A where-in-the-world guessing game: you get a photo of a real place — or a drop into Street View — and you put a pin on the world map. Play solo, take the Weekly Expedition, or host a live room where up to fourteen people join from their phones with a four-letter code and guess against one clock. Built in three days, end to end.</p>
+        <div class="stack"><span>Free</span><span>Live rooms</span><span>Street View</span><span>Weekly expedition</span></div>
+        <a class="visit" href="https://terra-incognita-amber.vercel.app" target="_blank" rel="noopener">Play the game →</a>
+        <a class="visit" href="writing/terra-incognita/" style="margin-left:22px;">Read the build note →</a>
+        <a class="visit" href="https://github.com/JamesPortman/terra-incognita" target="_blank" rel="noopener" style="margin-left:22px;">GitHub →</a>
+      </div>
+    </article>
+
+    <article class="proj" data-cats="apps paintings">
       <div class="thumb">
         <img src="assets/georgian-hero.jpg" alt="Singhampton: Winter — an original Georgian Bay landscape painting" loading="lazy" />
       </div>
       <div>
-        <div class="num">01 / Paintings</div>
         <h2>Georgian Bay Artists</h2>
         <div class="meta"><b>Painter &amp; Founder</b> · Original canvas &amp; prints · 2025 – Present</div>
         <p>An online gallery of my original Canadian landscape paintings and photographs of Georgian Bay and the surrounding Ontario region — Beaver River, Blue Mountain, Manitoulin, Owen Sound — sold as originals and gallery-wrapped, ready-to-hang prints. I rebuilt the storefront from Squarespace to a custom Next.js stack, taking hosting from $45/mo to $0.</p>
@@ -189,27 +203,11 @@
       </div>
     </article>
 
-    <article class="proj" data-cats="video novels">
-      <div class="thumb">
-        <img src="assets/baylight-hero.jpg" alt="Baylight: After Image cover — a near-future surveillance thriller" loading="lazy" />
-      </div>
-      <div>
-        <div class="num">02 / Video &amp; Novels</div>
-        <h2>Baylight: After Image</h2>
-        <div class="meta"><b>Author · Screenwriter · Microdrama Creator</b> · 2026</div>
-        <p>A near-future surveillance thriller — <em>“the city doesn't punish, it helps”</em> — told across three forms: a 23-chapter novella, a full audiobook, and a microdrama series. The novella is on Amazon; Episode 1 of the series is live with Episode 2 in production. The whole world lives on a custom, hand-coded static site I built as its hub.</p>
-        <div class="stack"><span>Microdrama</span><span>Novella</span><span>Audiobook</span></div>
-        <a class="visit" href="https://baylight.city" target="_blank" rel="noopener">Visit baylight.city →</a>
-        <a class="visit" href="https://github.com/JamesPortman/baylight-city" target="_blank" rel="noopener" style="margin-left:22px;">GitHub →</a>
-      </div>
-    </article>
-
     <article class="proj" data-cats="apps">
       <div class="thumb">
         <img src="assets/worldcup-hero.png" alt="2026 World Cup Pool app — create a pool and share a join code with friends" loading="lazy" />
       </div>
       <div>
-        <div class="num">03 / Apps</div>
         <h2>2026 World Cup Pool</h2>
         <div class="meta"><b>Designer &amp; Developer</b> · Web app · 2026</div>
         <p>A solo-built, open-source bracket-pool app for the 2026 FIFA World Cup (USA · Mexico · Canada). Create a pool, share a join code with friends, and the leaderboard updates as results come in. Shipped end to end — and it ships with a public <em>/architecture</em> page written for engineers.</p>
@@ -219,19 +217,17 @@
       </div>
     </article>
 
-    <article class="proj" data-cats="apps">
+    <article class="proj" data-cats="video novels">
       <div class="thumb">
-        <img src="assets/terra-hero.jpg" alt="Terra Incognita — a photo of a real place beside a world map waiting for your pin" loading="lazy" />
+        <img src="assets/baylight-hero.jpg" alt="Baylight: After Image cover — a near-future surveillance thriller" loading="lazy" />
       </div>
       <div>
-        <div class="num">04 / Apps</div>
-        <h2>Terra Incognita</h2>
-        <div class="meta"><b>Designer &amp; Developer</b> · Web app · 2026</div>
-        <p>A where-in-the-world guessing game: you get a photo of a real place — or a drop into Street View — and you put a pin on the world map. Play solo, take the Weekly Expedition, or host a live room where up to fourteen people join from their phones with a four-letter code and guess against one clock. Built in three days, end to end.</p>
-        <div class="stack"><span>Free</span><span>Live rooms</span><span>Street View</span><span>Weekly expedition</span></div>
-        <a class="visit" href="https://terra-incognita-amber.vercel.app" target="_blank" rel="noopener">Play the game →</a>
-        <a class="visit" href="writing/terra-incognita/" style="margin-left:22px;">Read the build note →</a>
-        <a class="visit" href="https://github.com/JamesPortman/terra-incognita" target="_blank" rel="noopener" style="margin-left:22px;">GitHub →</a>
+        <h2>Baylight: After Image</h2>
+        <div class="meta"><b>Author · Screenwriter · Microdrama Creator</b> · 2026</div>
+        <p>A near-future surveillance thriller — <em>“the city doesn't punish, it helps”</em> — told across three forms: a 23-chapter novella, a full audiobook, and a microdrama series. The novella is on Amazon; Episode 1 of the series is live with Episode 2 in production. The whole world lives on a custom, hand-coded static site I built as its hub.</p>
+        <div class="stack"><span>Microdrama</span><span>Novella</span><span>Audiobook</span></div>
+        <a class="visit" href="https://baylight.city" target="_blank" rel="noopener">Visit baylight.city →</a>
+        <a class="visit" href="https://github.com/JamesPortman/baylight-city" target="_blank" rel="noopener" style="margin-left:22px;">GitHub →</a>
       </div>
     </article>
 
@@ -249,30 +245,27 @@
         <p>Whether the medium is oil, prose, or code, the throughline is the same: make the thing end to end, and sweat the craft.</p>
       </div>
     </div>
+
+    <div class="reach">
+      <h2>Let's make something.</h2>
+      <a class="mail" href="mailto:james@portman.ca">james@portman.ca</a>
+      <div class="social">
+        <a href="https://www.linkedin.com/in/jamesportman/" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 9.67H5.67V18h2.67V9.67zM7 6.33a1.55 1.55 0 1 0 0 3.1 1.55 1.55 0 0 0 0-3.1zM18.33 18v-4.57c0-2.4-1.28-3.52-2.99-3.52-1.38 0-2 .76-2.34 1.29v-1.1h-2.67V18h2.67v-4.39c0-1.18.22-2.32 1.68-2.32 1.44 0 1.46 1.35 1.46 2.4V18h2.52z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://github.com/JamesPortman" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.94.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg>
+          GitHub
+        </a>
+        <a href="mailto:james@portman.ca"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          Email
+        </a>
+      </div>
+    </div>
   </div>
 </section>
 
-<footer id="contact">
-  <div class="wrap">
-    <div class="sec-label">Contact</div>
-    <h2>Let's make something.</h2>
-    <a class="mail" href="mailto:james@portman.ca">james@portman.ca</a>
-    <div class="social">
-      <a href="https://www.linkedin.com/in/jamesportman/" target="_blank" rel="noopener">
-        <svg class="ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 9.67H5.67V18h2.67V9.67zM7 6.33a1.55 1.55 0 1 0 0 3.1 1.55 1.55 0 0 0 0-3.1zM18.33 18v-4.57c0-2.4-1.28-3.52-2.99-3.52-1.38 0-2 .76-2.34 1.29v-1.1h-2.67V18h2.67v-4.39c0-1.18.22-2.32 1.68-2.32 1.44 0 1.46 1.35 1.46 2.4V18h2.52z"/></svg>
-        LinkedIn
-      </a>
-      <a href="https://github.com/JamesPortman" target="_blank" rel="noopener">
-        <svg class="ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.94.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg>
-        GitHub
-      </a>
-      <a href="mailto:james@portman.ca">
-        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
-        Email
-      </a>
-    </div>
-    <div class="copyright">© 2026 James Portman</div>
-  </div>
+<footer class="site-foot">
+  <div class="wrap">© 2026 James Portman</div>
 </footer>
 
 <div id="consent-banner" class="consent" hidden>
