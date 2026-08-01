@@ -1,0 +1,15 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/writing/terra-incognita",
+      "destination": "/writing/dont-subscribe-build-it",
+      "permanent": true
+    },
+    {
+      "source": "/writing/terra-incognita/",
+      "destination": "/writing/dont-subscribe-build-it/",
+      "permanent": true
+    }
+  ]
+}
