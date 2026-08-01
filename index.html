@@ -92,15 +92,15 @@
   .proj .visit{margin-top:20px;display:inline-flex;align-items:center;gap:6px;font-size:13px;letter-spacing:0.05em;color:var(--accent);border-bottom:1px solid var(--accent-soft);padding-bottom:2px;}
   .proj .visit:hover{color:var(--ink);border-color:var(--ink);}
 
-  .proj .toplist{margin-top:22px;}
+  .proj .toplist{margin-top:24px;}
   body:not([data-cat="paintings"]) .proj .toplist{display:none;}
   .proj .toplist-label{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:10px;}
-  .proj .tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;max-width:540px;}
+  .proj .tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;max-width:640px;}
   .proj .tiles a{display:block;}
   .proj .tiles img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;border:1px solid var(--line);border-radius:2px;background:var(--paper-2);}
   .proj .tiles a:hover img{border-color:var(--accent);}
   .proj .tiles span{display:block;margin-top:6px;font-size:10px;line-height:1.3;color:var(--ink-faint);}
-  @media(max-width:680px){.proj .tiles{grid-template-columns:repeat(3,1fr);max-width:340px;}}
+  @media(max-width:680px){.proj .tiles{grid-template-columns:repeat(4,1fr);max-width:340px;gap:8px;}}
 
   /* worldcup tile */
   .wc-tile{aspect-ratio:4/3;border-radius:3px;border:1px solid var(--line);background:#161a20;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#e8eef5;}
@@ -166,17 +166,35 @@
         <h2>GeorgianArtist.com</h2>
         <p>An online gallery of my original Canadian landscape paintings and photographs of Georgian Bay and the surrounding Ontario region — Beaver River, Blue Mountain, Manitoulin, Owen Sound — sold as originals and gallery-wrapped, ready-to-hang prints. I rebuilt the storefront from Squarespace to a custom Next.js stack, taking hosting from $45/mo to $0.</p>
         <div class="stack"><span>Original art</span><span>Own your gallery</span><span>No monthly fees</span></div>
+        <a class="visit" href="https://www.georgianartist.com" target="_blank" rel="noopener">Visit georgianartist.com →</a>
         <div class="toplist">
-          <div class="toplist-label">Most viewed, summer 2026</div>
           <div class="tiles">
-            <a href="https://www.georgianartist.com/photographs/ravenna-canola-photo" target="_blank" rel="noopener" title="Ravenna Canola"><img src="assets/gallery/ravenna-canola-photo.jpg" alt="Ravenna Canola" loading="lazy" /><span>Ravenna Canola</span></a>
-            <a href="https://www.georgianartist.com/products/scenic-caves" target="_blank" rel="noopener" title="Scenic Caves (2 panels)"><img src="assets/gallery/scenic-caves.jpg" alt="Scenic Caves (2 panels)" loading="lazy" /><span>Scenic Caves (2 panels)</span></a>
+            <a href="https://www.georgianartist.com/products/scenic-caves" target="_blank" rel="noopener" title="Scenic Caves"><img src="assets/gallery/scenic-caves.jpg" alt="Scenic Caves" loading="lazy" /><span>Scenic Caves</span></a>
+            <a href="https://www.georgianartist.com/products/singhampton-winter" target="_blank" rel="noopener" title="Singhampton: Winter"><img src="assets/gallery/singhampton-winter.jpg" alt="Singhampton: Winter" loading="lazy" /><span>Singhampton: Winter</span></a>
+            <a href="https://www.georgianartist.com/products/council-beach" target="_blank" rel="noopener" title="Council Beach"><img src="assets/gallery/council-beach.jpg" alt="Council Beach" loading="lazy" /><span>Council Beach</span></a>
+            <a href="https://www.georgianartist.com/products/lora-bay" target="_blank" rel="noopener" title="Lora Bay"><img src="assets/gallery/lora-bay.jpg" alt="Lora Bay" loading="lazy" /><span>Lora Bay</span></a>
+            <a href="https://www.georgianartist.com/products/bruce-trail" target="_blank" rel="noopener" title="Bruce Trail in the Grey Highlands"><img src="assets/gallery/bruce-trail.jpg" alt="Bruce Trail in the Grey Highlands" loading="lazy" /><span>Bruce Trail in the Grey Highlands</span></a>
             <a href="https://www.georgianartist.com/products/inglis-falls" target="_blank" rel="noopener" title="Inglis Falls, Owen Sound"><img src="assets/gallery/inglis-falls.jpg" alt="Inglis Falls, Owen Sound" loading="lazy" /><span>Inglis Falls, Owen Sound</span></a>
-            <a href="https://www.georgianartist.com/products/northwinds-beach" target="_blank" rel="noopener" title="Northwinds Beach"><img src="assets/gallery/northwinds-beach.jpg" alt="Northwinds Beach" loading="lazy" /><span>Northwinds Beach</span></a>
+            <a href="https://www.georgianartist.com/products/manitoulin-island" target="_blank" rel="noopener" title="Manitoulin Island"><img src="assets/gallery/manitoulin-island.jpg" alt="Manitoulin Island" loading="lazy" /><span>Manitoulin Island</span></a>
             <a href="https://www.georgianartist.com/products/alpine-ski-fall" target="_blank" rel="noopener" title="Alpine Ski: Fall"><img src="assets/gallery/alpine-ski-fall.jpg" alt="Alpine Ski: Fall" loading="lazy" /><span>Alpine Ski: Fall</span></a>
+            <a href="https://www.georgianartist.com/products/beaver-river-access" target="_blank" rel="noopener" title="Beaver River Access"><img src="assets/gallery/beaver-river-access.jpg" alt="Beaver River Access" loading="lazy" /><span>Beaver River Access</span></a>
+            <a href="https://www.georgianartist.com/products/ravenna-canola" target="_blank" rel="noopener" title="Ravenna Canola Field"><img src="assets/gallery/ravenna-canola.jpg" alt="Ravenna Canola Field" loading="lazy" /><span>Ravenna Canola Field</span></a>
+            <a href="https://www.georgianartist.com/products/northwinds-beach" target="_blank" rel="noopener" title="Northwinds Beach"><img src="assets/gallery/northwinds-beach.jpg" alt="Northwinds Beach" loading="lazy" /><span>Northwinds Beach</span></a>
+            <a href="https://www.georgianartist.com/products/ravenna-sunset" target="_blank" rel="noopener" title="Ravenna Sunset"><img src="assets/gallery/ravenna-sunset.jpg" alt="Ravenna Sunset" loading="lazy" /><span>Ravenna Sunset</span></a>
+            <a href="https://www.georgianartist.com/photographs/clarksburg-library" target="_blank" rel="noopener" title="Clarksburg Library"><img src="assets/gallery/clarksburg-library.jpg" alt="Clarksburg Library" loading="lazy" /><span>Clarksburg Library</span></a>
+            <a href="https://www.georgianartist.com/photographs/delphi-point" target="_blank" rel="noopener" title="Delphi Point"><img src="assets/gallery/delphi-point.jpg" alt="Delphi Point" loading="lazy" /><span>Delphi Point</span></a>
+            <a href="https://www.georgianartist.com/photographs/ravenna-canola-photo" target="_blank" rel="noopener" title="Ravenna Canola"><img src="assets/gallery/ravenna-canola-photo.jpg" alt="Ravenna Canola" loading="lazy" /><span>Ravenna Canola</span></a>
+            <a href="https://www.georgianartist.com/photographs/northwinds-beach-twilight" target="_blank" rel="noopener" title="Northwinds Beach Twilight"><img src="assets/gallery/northwinds-beach-twilight.jpg" alt="Northwinds Beach Twilight" loading="lazy" /><span>Northwinds Beach Twilight</span></a>
+            <a href="https://www.georgianartist.com/photographs/the-grotto" target="_blank" rel="noopener" title="The Grotto"><img src="assets/gallery/the-grotto.jpg" alt="The Grotto" loading="lazy" /><span>The Grotto</span></a>
+            <a href="https://www.georgianartist.com/photographs/blue-mountain-sunrise" target="_blank" rel="noopener" title="Blue Mountain Sunrise"><img src="assets/gallery/blue-mountain-sunrise.jpg" alt="Blue Mountain Sunrise" loading="lazy" /><span>Blue Mountain Sunrise</span></a>
+            <a href="https://www.georgianartist.com/photographs/blue-mountain-sunset-2" target="_blank" rel="noopener" title="Blue Mountain Sunset"><img src="assets/gallery/blue-mountain-sunset-2.jpg" alt="Blue Mountain Sunset" loading="lazy" /><span>Blue Mountain Sunset</span></a>
+            <a href="https://www.georgianartist.com/photographs/local-farm" target="_blank" rel="noopener" title="Local Farm"><img src="assets/gallery/local-farm.jpg" alt="Local Farm" loading="lazy" /><span>Local Farm</span></a>
+            <a href="https://www.georgianartist.com/photographs/blue-mountain-trail" target="_blank" rel="noopener" title="Blue Mountain Trail"><img src="assets/gallery/blue-mountain-trail.jpg" alt="Blue Mountain Trail" loading="lazy" /><span>Blue Mountain Trail</span></a>
+            <a href="https://www.georgianartist.com/photographs/bridal-veil-falls" target="_blank" rel="noopener" title="Bridal Veil Falls"><img src="assets/gallery/bridal-veil-falls.jpg" alt="Bridal Veil Falls" loading="lazy" /><span>Bridal Veil Falls</span></a>
+            <a href="https://www.georgianartist.com/photographs/autumn-canopy" target="_blank" rel="noopener" title="Autumn Canopy"><img src="assets/gallery/autumn-canopy.jpg" alt="Autumn Canopy" loading="lazy" /><span>Autumn Canopy</span></a>
+            <a href="https://www.georgianartist.com/photographs/snowy-owl-in-craigleith" target="_blank" rel="noopener" title="Snowy Owl in Craigleith"><img src="assets/gallery/snowy-owl-in-craigleith.jpg" alt="Snowy Owl in Craigleith" loading="lazy" /><span>Snowy Owl in Craigleith</span></a>
           </div>
         </div>
-        <a class="visit" href="https://www.georgianartist.com" target="_blank" rel="noopener">Visit georgianartist.com →</a>
       </div>
     </article>
 
