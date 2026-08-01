@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Terra Incognita — building a multiplayer geography game in three days | James Portman</title>
-<meta name="description" content="Terra Incognita is a where-in-the-world guessing game with live 14-player rooms. Three days, 25 commits, 74 tests — and what the build taught me about shipping with an AI agent in the loop." />
+<title>Terra Incognita — building a multiplayer geography game | James Portman</title>
+<meta name="description" content="Terra Incognita is a where-in-the-world guessing game with live 14-player rooms — and what building it taught me about shipping with an AI agent in the loop." />
 <link rel="canonical" href="https://www.portman.ca/writing/terra-incognita/" />
-<meta property="og:title" content="Terra Incognita — building a multiplayer geography game in three days" />
-<meta property="og:description" content="Three days, 25 commits, 74 tests. When the code gets cheap, verification becomes the job." />
+<meta property="og:title" content="Terra Incognita — building a multiplayer geography game" />
+<meta property="og:description" content="A guessing game with 14-player live rooms — and the lesson from building it: when the code gets cheap, verification becomes the job." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.portman.ca/writing/terra-incognita/" />
 <meta property="og:image" content="https://www.portman.ca/assets/terra-og.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="627" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Terra Incognita — building a multiplayer geography game in three days" />
-<meta name="twitter:description" content="Three days, 25 commits, 74 tests. When the code gets cheap, verification becomes the job." />
+<meta name="twitter:title" content="Terra Incognita — building a multiplayer geography game" />
+<meta name="twitter:description" content="A guessing game with 14-player live rooms — and the lesson from building it: when the code gets cheap, verification becomes the job." />
 <meta name="twitter:image" content="https://www.portman.ca/assets/terra-og.jpg" />
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
 <!-- Google Analytics 4 (Consent Mode v2) -->
@@ -153,9 +153,9 @@
   <div class="art-wrap">
     <a class="back" href="/#apps">← Claude Apps</a>
     <div class="kicker">Build note · Code</div>
-    <h1>Terra Incognita: a multiplayer geography game, built in three days</h1>
-    <p class="standfirst">A photo of a real place, a world map, and five thousand points riding on how close your pin lands. The game took a weekend. What it taught me about building with an AI agent in the loop is the part worth writing down.</p>
-    <div class="byline"><b>James Portman</b> · July 2026 · 4 min read</div>
+    <h1>Terra Incognita: a multiplayer geography game, and what building it taught me</h1>
+    <p class="standfirst">A photo of a real place, a world map, and five thousand points riding on how close your pin lands. The game is the fun part. What it taught me about building with an AI agent in the loop is the part worth writing down.</p>
+    <div class="byline"><b>James Portman</b> · Build note</div>
 
     <figure class="hero-shot">
       <img src="/assets/terra-hero.jpg" alt="Terra Incognita gameplay: a photograph of Ha Long Bay beside a dark world map waiting for a pin" />
@@ -171,10 +171,10 @@
 
     <p>Play it solo. Take the Weekly Expedition, where everyone gets the same five locations and the board resets on Monday. Or open a live room: the map goes up on the big screen, up to fourteen people join from their phones with a four-letter code, everyone guesses against one clock, and the reveal shows every pin at once. It is the closest thing I have made to a party game.</p>
 
-    <p>Empty folder to production took three days.</p>
+    <p>Empty folder to production, shipped end to end.</p>
 
     <div class="facts">
-      <div><div class="n">3</div><div class="l">Days</div></div>
+      <div><div class="n">5,000</div><div class="l">Points/round</div></div>
       <div><div class="n">25</div><div class="l">Commits</div></div>
       <div><div class="n">74</div><div class="l">Tests</div></div>
       <div><div class="n">14</div><div class="l">Players/room</div></div>
@@ -182,7 +182,7 @@
 
     <h2>The bottleneck moved</h2>
 
-    <p>I have been shipping software for a long time, and the constraint was always typing. You knew roughly what you wanted; the cost was the hours between knowing and having. Work with an AI coding agent and that cost falls close to zero — and the moment it does, a different constraint walks to the front of the queue.</p>
+    <p>I have been shipping software for a long time, and the constraint was always typing. You knew roughly what you wanted; the cost was the distance between knowing and having. Work with an AI coding agent and that cost falls close to zero — and the moment it does, a different constraint walks to the front of the queue.</p>
 
     <blockquote>The new bottleneck is specification and verification. Saying precisely what you want, and proving that what came back actually does it.</blockquote>
 
@@ -214,15 +214,15 @@
 
     <h2>The honest part</h2>
 
-    <p>Three days is real. So is the fact that the last of them was barely about features. It was an accessibility pass, chasing test flakiness caused by external network calls, keeping the architecture page honest, and fixing the defaults so a new player lands somewhere sensible rather than somewhere random.</p>
+    <p>Most of the build was not about features. It was an accessibility pass, chasing test flakiness caused by external network calls, keeping the architecture page honest, and fixing the defaults so a new player lands somewhere sensible rather than somewhere random.</p>
 
-    <p>That ratio feels about right, and I suspect it is the actual shape of this work now. Generating the thing is fast. Making it correct, accessible, documented and safe to change is where the days go — and that part is still judgment, not autocomplete.</p>
+    <p>That ratio feels about right, and I suspect it is the actual shape of this work now. Generating the thing is fast. Making it correct, accessible, documented and safe to change is where the work goes — and that part is still judgment, not autocomplete.</p>
 
     <p>Same as oil paint, really. Anyone can cover a canvas. Sweating the craft is the whole job.</p>
 
     <div class="endcta">
       <h2>Go and lose to your colleagues</h2>
-      <p>Open a live room, send the code round the office, and find out who can genuinely put a pin within 50km of Ha Long Bay. Five minutes, and the leaderboard is permanent.</p>
+      <p>Open a live room, send the code round the office, and find out who can genuinely put a pin within 50km of Ha Long Bay. The leaderboard is permanent.</p>
       <div class="cta">
         <a class="btn accent" href="https://terra-incognita-amber.vercel.app" target="_blank" rel="noopener">Play Terra Incognita</a>
         <a class="btn" href="https://terra-incognita-amber.vercel.app/architecture" target="_blank" rel="noopener">How it's built</a>
