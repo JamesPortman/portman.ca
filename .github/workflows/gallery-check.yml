@@ -1,0 +1,82 @@
+name: Gallery drift check
+
+# The Paintings grid on portman.ca is a static snapshot of georgianartist.com.
+# This notices when the gallery has changed and the snapshot hasn't.
+# Fix with: node tools/build-gallery.mjs && git commit -am "Rebuild gallery"
+
+on:
+  schedule:
+    - cron: "0 13 * * 1" # Mondays, 09:00 Eastern
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Compare the grid against the live gallery
+        id: drift
+        run: |
+          set +e
+          OUT=$(node tools/build-gallery.mjs --check 2>&1)
+          CODE=$?
+          echo "$OUT"
+          {
+            echo "report<<EOF"
+            echo "$OUT"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+          echo "drifted=$([ $CODE -eq 0 ] && echo false || echo true)" >> "$GITHUB_OUTPUT"
+
+      - name: Open or update an issue when it has drifted
+        if: steps.drift.outputs.drifted == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = 'Paintings grid is out of date with georgianartist.com';
+            const body = [
+              'The gallery has changed since the grid on portman.ca was generated.',
+              '',
+              '```',
+              `${{ steps.drift.outputs.report }}`,
+              '```',
+              '',
+              'To fix:',
+              '',
+              '```bash',
+              'node tools/build-gallery.mjs',
+              'git commit -am "Rebuild the gallery grid"',
+              'git push',
+              '```',
+            ].join('\n');
+
+            const { data: open } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'gallery-drift',
+            });
+
+            if (open.length) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: open[0].number,
+                body,
+              });
+            } else {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title,
+                body,
+                labels: ['gallery-drift'],
+              });
+            }

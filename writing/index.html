@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Writing — James Portman</title>
+<meta name="description" content="Build notes from James Portman: taking subscription software apart, rebuilding it, and what the rebuild actually costs." />
+<link rel="canonical" href="https://www.portman.ca/writing/" />
+<meta property="og:title" content="Writing — James Portman" />
+<meta property="og:description" content="Build notes: taking subscription software apart, rebuilding it, and what the rebuild actually costs." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.portman.ca/writing/" />
+<meta property="og:image" content="https://www.portman.ca/assets/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Writing — James Portman" />
+<meta name="twitter:description" content="Build notes: taking subscription software apart, rebuilding it, and what the rebuild actually costs." />
+<meta name="twitter:image" content="https://www.portman.ca/assets/og-image.png" />
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<!-- Google Analytics 4 (Consent Mode v2) -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',wait_for_update:500});
+  var GA_ID='G-M173XE4X93';
+  if(window.localStorage && localStorage.getItem('pc_consent')==='granted'){gtag('consent','update',{analytics_storage:'granted'});}
+  (function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID;document.head.appendChild(s);})();
+  gtag('js', new Date());
+  gtag('config', GA_ID);
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/site.css" />
+<style>
+  body{min-height:100vh;display:flex;flex-direction:column;}
+  main{flex:1 0 auto;}
+  .intro{max-width:640px;font-family:var(--serif);font-size:clamp(18px,2.6vw,21px);line-height:1.5;color:var(--ink-soft);margin-bottom:44px;}
+
+  .piece{display:block;padding:32px 0;border-top:1px solid var(--line);max-width:760px;}
+  .piece:last-of-type{border-bottom:1px solid var(--line);}
+  .piece .when{font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-faint);}
+  .piece h2{font-family:var(--serif);font-weight:500;font-size:clamp(24px,3.4vw,30px);line-height:1.1;margin:8px 0 10px;}
+  .piece:hover h2{color:var(--accent);}
+  .piece p{color:var(--ink-soft);font-size:17px;}
+  .piece .more{margin-top:14px;display:inline-block;font-size:13px;letter-spacing:0.05em;color:var(--accent);border-bottom:1px solid var(--accent-soft);padding-bottom:2px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="/">James Portman</a>
+    <div class="links">
+      <a href="/#apps">Claude Apps</a>
+      <a href="/#media">Media</a>
+      <a href="/#paintings">Paintings</a>
+      <a href="/about/">About</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+<section>
+  <div class="wrap">
+    <div class="sec-label">Writing</div>
+    <h1 class="sr-only">Writing — James Portman</h1>
+    <p class="intro">Build notes. Mostly the same question from different angles: what is actually inside the software we rent, what does it take to make your own, and when is that a bad idea.</p>
+
+    <a class="piece" href="/writing/dont-subscribe-build-it/">
+      <div class="when">Build note · July 2026</div>
+      <h2>Don’t subscribe to it. Build it.</h2>
+      <p>A commercial geography game taken apart into its parts — most of them free — plus the bit that is genuinely hard, what the rebuild costs to run, and the three cases where copying a subscription product is the wrong call.</p>
+      <span class="more">Read →</span>
+    </a>
+  </div>
+</section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">© 2026 James Portman</div>
+</footer>
+
+<div id="consent-banner" class="consent" hidden>
+  <p>This site uses Google Analytics cookies to understand visits. Nothing is tracked until you accept.</p>
+  <div class="consent-btns">
+    <button id="consent-decline" type="button">Decline</button>
+    <button id="consent-accept" type="button">Accept</button>
+  </div>
+</div>
+<script>
+  (function(){
+    var b=document.getElementById('consent-banner');
+    var stored=window.localStorage&&localStorage.getItem('pc_consent');
+    var gaReady=(typeof GA_ID!=='undefined')&&GA_ID.indexOf('XXXX')===-1;
+    if(!stored&&gaReady){b.hidden=false;}
+    document.getElementById('consent-accept').addEventListener('click',function(){
+      try{localStorage.setItem('pc_consent','granted');}catch(e){}
+      if(window.gtag)gtag('consent','update',{analytics_storage:'granted'});
+      b.hidden=true;
+    });
+    document.getElementById('consent-decline').addEventListener('click',function(){
+      try{localStorage.setItem('pc_consent','denied');}catch(e){}
+      b.hidden=true;
+    });
+  })();
+</script>
+</body>
+</html>

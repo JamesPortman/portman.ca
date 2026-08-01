@@ -10,14 +10,15 @@
 <meta property="og:description" content="$0 a month to run. What you actually have to replace, and when not to bother." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.portman.ca/writing/dont-subscribe-build-it/" />
-<meta property="og:image" content="https://www.portman.ca/assets/terra-og.jpg" />
+<meta property="og:image" content="https://www.portman.ca/assets/dont-subscribe-og.jpg" />
 <meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="627" />
+<meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Don’t subscribe to it. Build it." />
 <meta name="twitter:description" content="$0 a month to run. What you actually have to replace, and when not to bother." />
-<meta name="twitter:image" content="https://www.portman.ca/assets/terra-og.jpg" />
+<meta name="twitter:image" content="https://www.portman.ca/assets/dont-subscribe-og.jpg" />
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <!-- Google Analytics 4 (Consent Mode v2) -->
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -32,53 +33,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/site.css" />
 <style>
-  :root{
-    --paper:#F3EFE7;
-    --paper-2:#FAF7F0;
-    --ink:#2A2724;
-    --ink-soft:#5C574F;
-    --ink-faint:#8A847A;
-    --line:#DAD4C8;
-    --accent:#B4502A;
-    --accent-soft:#C9764F;
-    --serif:"Fraunces", Georgia, "Times New Roman", serif;
-    --sans:"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  html{scroll-behavior:smooth;}
-  body{
-    background:var(--paper);
-    color:var(--ink);
-    font-family:var(--sans);
-    line-height:1.65;
-    -webkit-font-smoothing:antialiased;
-    background-image:radial-gradient(rgba(120,108,90,0.05) 1px, transparent 1px);
-    background-size:4px 4px;
-  }
-  a{color:inherit;text-decoration:none;}
-  .wrap{max-width:1000px;margin:0 auto;padding:0 28px;}
-
-  /* nav */
-  nav{position:sticky;top:0;z-index:10;background:rgba(243,239,231,0.85);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
-  nav .wrap{display:flex;justify-content:space-between;align-items:center;height:62px;}
-  nav .brand{font-family:var(--serif);font-size:19px;font-weight:500;letter-spacing:0.01em;}
-  nav .links{display:flex;gap:26px;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-soft);}
-  nav .links a:hover{color:var(--accent);}
-  @media(max-width:680px){
-    nav .wrap{flex-wrap:wrap;height:auto;padding-top:12px;padding-bottom:10px;gap:8px;}
-    nav .brand{flex:1 0 100%;}
-    nav .links{width:100%;gap:18px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px;}
-    nav .links::-webkit-scrollbar{display:none;}
-    nav .links a{white-space:nowrap;}
-  }
-
-  .btn{display:inline-flex;align-items:center;gap:8px;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;padding:12px 20px;border:1px solid var(--ink);border-radius:2px;transition:all .2s;}
-  .btn:hover{background:var(--ink);color:var(--paper);}
-  .btn.accent{border-color:var(--accent);color:var(--accent);}
-  .btn.accent:hover{background:var(--accent);color:var(--paper-2);}
-
-  section{padding:40px 0;}
+  footer.site-foot{margin-top:40px;}
 
   /* article head */
   .art-wrap{max-width:760px;margin:0 auto;padding:0 28px;}
@@ -120,16 +77,6 @@
   .endcta p{color:var(--ink-soft);font-size:17px;margin-bottom:22px;}
   .endcta .cta{display:flex;gap:14px;flex-wrap:wrap;}
 
-  /* slim footer */
-  footer.site-foot{background:var(--ink);color:#9b948a;padding:20px 0;margin-top:40px;font-size:12px;letter-spacing:0.04em;}
-
-  .consent{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--ink);color:var(--paper);padding:14px 20px;display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;font-size:13px;}
-  .consent p{margin:0;max-width:640px;color:#cfc8bd;}
-  .consent a{color:var(--accent-soft);}
-  .consent-btns{display:flex;gap:10px;flex:none;}
-  .consent button{font-family:var(--sans);font-size:13px;letter-spacing:0.02em;padding:8px 16px;border-radius:3px;cursor:pointer;border:1px solid #5a554d;background:transparent;color:var(--paper);}
-  .consent button#consent-accept{background:var(--accent);border-color:var(--accent);color:var(--paper-2);}
-  .consent[hidden]{display:none;}
 </style>
 </head>
 <body>
@@ -150,7 +97,7 @@
 
 <header class="post">
   <div class="art-wrap">
-    <a class="back" href="/#apps">← Claude Apps</a>
+    <a class="back" href="/writing/">← Writing</a>
     <div class="kicker">Build note · Claude Apps</div>
     <h1>Don’t subscribe to it. Build it.</h1>
     <p class="standfirst">Terra Incognita is my own version of a commercial geography game. It costs nothing a month to run — and the surprising part is how little of it was actually hard.</p>

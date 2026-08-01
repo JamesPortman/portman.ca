@@ -7,3 +7,6 @@ Jim photo pict.jpg
 .DS_Store
 node_modules/
 .vercel
+
+# Claude Code local settings
+.claude/
