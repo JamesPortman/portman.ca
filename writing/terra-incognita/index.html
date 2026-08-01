@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Terra Incognita — building a multiplayer geography game | James Portman</title>
-<meta name="description" content="Terra Incognita is a where-in-the-world guessing game with live 14-player rooms — and what building it taught me about shipping with an AI agent in the loop." />
+<title>Don’t subscribe to it. Build it. — James Portman</title>
+<meta name="description" content="Terra Incognita is my own version of a commercial geography game — a weekend to build, nothing a month to run. A parts list, the bit that is actually hard, and when copying a subscription product is a bad idea." />
 <link rel="canonical" href="https://www.portman.ca/writing/terra-incognita/" />
-<meta property="og:title" content="Terra Incognita — building a multiplayer geography game" />
-<meta property="og:description" content="A guessing game with 14-player live rooms — and the lesson from building it: when the code gets cheap, verification becomes the job." />
+<meta property="og:title" content="Don’t subscribe to it. Build it." />
+<meta property="og:description" content="A weekend to build, $0 a month to run. What you actually have to replace, and when not to bother." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.portman.ca/writing/terra-incognita/" />
 <meta property="og:image" content="https://www.portman.ca/assets/terra-og.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="627" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Terra Incognita — building a multiplayer geography game" />
-<meta name="twitter:description" content="A guessing game with 14-player live rooms — and the lesson from building it: when the code gets cheap, verification becomes the job." />
+<meta name="twitter:title" content="Don’t subscribe to it. Build it." />
+<meta name="twitter:description" content="A weekend to build, $0 a month to run. What you actually have to replace, and when not to bother." />
 <meta name="twitter:image" content="https://www.portman.ca/assets/terra-og.jpg" />
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
 <!-- Google Analytics 4 (Consent Mode v2) -->
@@ -152,14 +152,14 @@
 <header class="post">
   <div class="art-wrap">
     <a class="back" href="/#apps">← Claude Apps</a>
-    <div class="kicker">Build note · Code</div>
-    <h1>Terra Incognita: a multiplayer geography game, and what building it taught me</h1>
-    <p class="standfirst">A photo of a real place, a world map, and five thousand points riding on how close your pin lands. The game is the fun part. What it taught me about building with an AI agent in the loop is the part worth writing down.</p>
-    <div class="byline"><b>James Portman</b> · Build note</div>
+    <div class="kicker">Build note · Claude Apps</div>
+    <h1>Don’t subscribe to it. Build it.</h1>
+    <p class="standfirst">Terra Incognita is my own version of a commercial geography game. A weekend to build, nothing a month to run — and the surprising part is how little of it was actually hard.</p>
+    <div class="byline"><b>James Portman</b> · July 2026 · 4 min read</div>
 
     <figure class="hero-shot">
       <img src="/assets/terra-hero.jpg" alt="Terra Incognita gameplay: a photograph of Ha Long Bay beside a dark world map waiting for a pin" />
-      <figcaption>Round one. The photo is real, the map is yours, and the clock is running.</figcaption>
+      <figcaption>A photo of somewhere real, a map, and a clock. That’s the whole product.</figcaption>
     </figure>
   </div>
 </header>
@@ -167,65 +167,65 @@
 <div class="prose">
   <div class="art-wrap">
 
-    <p class="lead">Terra Incognita is a where-in-the-world guessing game. You get a photo of a real place — or a drop into Street View — and you put a pin on the world map. The closer you land, the more of the 5,000 points per round you keep.</p>
+    <p class="lead">There is a whole category of software you pay a monthly fee for that is, underneath, four or five well-understood parts wired together. Once an agent can write the wiring, the interesting question stops being <em>could I build this</em> and becomes <em>why am I renting it</em>.</p>
 
-    <p>Play it solo. Take the Weekly Expedition, where everyone gets the same five locations and the board resets on Monday. Or open a live room: the map goes up on the big screen, up to fourteen people join from their phones with a four-letter code, everyone guesses against one clock, and the reveal shows every pin at once. It is the closest thing I have made to a party game.</p>
-
-    <p>Empty folder to production, shipped end to end.</p>
+    <p>So I took one apart. Terra Incognita is a where-in-the-world guessing game: you get a photo of a real place — or a drop into Street View — and you put a pin on the world map. Closer pin, more points. Play solo, take the weekly expedition, or open a live room and let a group guess the same places at once from whatever device is in their hand.</p>
 
     <div class="facts">
-      <div><div class="n">5,000</div><div class="l">Points/round</div></div>
-      <div><div class="n">25</div><div class="l">Commits</div></div>
+      <div><div class="n">3</div><div class="l">Days to build</div></div>
+      <div><div class="n">$0</div><div class="l">Hosting a month</div></div>
+      <div><div class="n">164</div><div class="l">Real places</div></div>
       <div><div class="n">74</div><div class="l">Tests</div></div>
-      <div><div class="n">14</div><div class="l">Players/room</div></div>
     </div>
 
-    <h2>The bottleneck moved</h2>
+    <h2>Written as a product it sounds big. Written as a parts list it isn’t.</h2>
 
-    <p>I have been shipping software for a long time, and the constraint was always typing. You knew roughly what you wanted; the cost was the distance between knowing and having. Work with an AI coding agent and that cost falls close to zero — and the moment it does, a different constraint walks to the front of the queue.</p>
+    <p>Every one of these is a solved problem with an obvious implementation:</p>
 
-    <blockquote>The new bottleneck is specification and verification. Saying precisely what you want, and proving that what came back actually does it.</blockquote>
+    <p>A map you can click that gives you coordinates. A set of photos whose real coordinates you know. The distance between two points on a sphere. A round loop with a timer. Shared state so a group sees the same round at the same moment. Somewhere to keep the scores.</p>
 
-    <p>Everything below is a version of that.</p>
+    <p>That’s it. That is the entire product. The commercial version is better than mine in ways that matter — more imagery, more polish, more people already playing — but it is not made of different parts.</p>
 
-    <h2>Make the tests the gate, not a chore</h2>
+    <h2>Most of the parts are free</h2>
 
-    <p>Terra Incognita ships with 55 unit tests and 19 end-to-end browser tests. Nothing reaches production unless both suites pass: GitHub Actions runs them and only then calls the deploy. Vercel's automatic git deploy is switched off on purpose, so a red suite cannot ship — not "shouldn't", cannot.</p>
+    <p>The world map is country outlines from open GeoJSON, converted once into inline SVG paths. No map provider, no tiles, no key — it is just shapes in the page, which is also why the game loads instantly. The photos come from Wikimedia Commons. The distance between your pin and the truth is the haversine formula, about a dozen lines. Live rooms are a Redis key with a four-hour expiry; the all-time leaderboard is one Postgres table. Both sit on free tiers, as does the hosting.</p>
 
-    <p>That isn't discipline for its own sake. When code arrives faster than you can read it, tests stop being a quality ritual and become the only honest signal you have left. Velocity without them is just a faster way to be wrong.</p>
+    <p>Exactly one dependency is metered: Google Street View, for the mode that drops you somewhere random on Earth. Everything else — all 164 hand-picked locations, the live rooms, the weekly board — runs at no monthly cost. Turn the Street View mode off and the running cost of the whole thing is zero.</p>
 
-    <h2>The agent doesn't see what your users see</h2>
+    <h2>The hard part isn’t the features</h2>
 
-    <p>My favourite failure of the build. The browser pane the agent uses to preview a page reports itself as hidden, and Google Maps politely declines to render into a hidden document. So the guess map came back as a flat grey box in every screenshot I was shown, while being perfectly fine for every actual human.</p>
+    <p>This is where the build-an-app-in-an-afternoon posts usually stop, and it’s the half that decides whether you have a product or a demo.</p>
 
-    <p>The fix wasn't code. It was one line in the repo's instructions file: don't trust the preview for maps, verify with a real browser test. That generalises. When you find a way your tooling lies to you, the durable fix is writing it down where the next session will read it — not remembering it yourself.</p>
+    <p><strong>Scoring can’t live in the browser.</strong> The client knows where you clicked; it must not know how far off you were until the server says so, or the leaderboard is fiction. So the same location list is embedded in the page for rendering and held on the server for scoring — which creates an invisible contract between two files: they are indexed by position, so reorder one and every score silently becomes wrong. No error, no crash. That rule is written in capitals at the top of the repo instructions, because nothing in the language enforces it.</p>
 
-    <h2>Write down the contracts, especially the invisible ones</h2>
+    <p><strong>And the tests are the gate, not a chore.</strong> 55 unit tests and 19 end-to-end browser tests, and the deploy only runs if both suites pass — automatic deploys are switched off on purpose, so a red suite <em>cannot</em> ship. When code arrives faster than you can read it, tests stop being a quality ritual and become the only honest signal you have left.</p>
 
-    <p>The game embeds its location list in the page, and the server scores your guess against the same list by position. Two copies, one order. Reorder either and every score silently becomes wrong — no error, no crash, no red anywhere. Just quietly incorrect results and a leaderboard nobody can trust.</p>
+    <h2>What it actually replaced</h2>
 
-    <p>So the rule sits at the top of the repo instructions in capitals: that array is <strong>append-only</strong>. The constraints that hurt you are never the ones a type checker catches. They are the agreements between two files that nothing enforces, and if they live only in your head they last exactly as long as your memory of them.</p>
+    <p>The game is the fun example. The one that pays for itself is my painting gallery: it was a Squarespace store, and I rebuilt it as a custom stack on the same free hosting. Same shop, same domain, same catalogue — $45 a month to $0. The rebuild took a fraction of a year’s subscription.</p>
 
-    <h2>Constraints do design work for you</h2>
+    <blockquote>The build is a weekend. The maintenance is forever. That’s the trade, and it’s the only part of this worth thinking hard about.</blockquote>
 
-    <p>The whole game is a single self-contained HTML file. The world map is inline SVG generated from GeoJSON, the photos are static assets, the built page is about 370KB, and there is no framework anywhere in it. Multiplayer lives in a handful of small serverless functions — Redis holds live room state with a four-hour expiry, Postgres holds the all-time leaderboard.</p>
+    <h2>When not to do this</h2>
 
-    <p>I didn't pick that because it was minimal. I picked it because one file is trivially verifiable, costs nothing to host, and is very hard to accidentally over-engineer. The constraint made several decisions for me before I got to them.</p>
+    <p>Three cases where rolling your own is a hobby rather than a saving, and I’d rather say them out loud than pretend otherwise.</p>
 
-    <h2>The honest part</h2>
+    <p><strong>When you’re paying for the content, not the software.</strong> A geography game’s real asset is worldwide imagery and the people already playing it. I can copy the mechanics in a weekend; I can’t copy either of those, and I’m not pretending Terra Incognita competes.</p>
 
-    <p>Most of the build was not about features. It was an accessibility pass, chasing test flakiness caused by external network calls, keeping the architecture page honest, and fixing the defaults so a new player lands somewhere sensible rather than somewhere random.</p>
+    <p><strong>When it’s a system of record.</strong> Anything holding money, payroll, or customer data carries obligations that have nothing to do with whether you can write the feature.</p>
 
-    <p>That ratio feels about right, and I suspect it is the actual shape of this work now. Generating the thing is fast. Making it correct, accessible, documented and safe to change is where the work goes — and that part is still judgment, not autocomplete.</p>
+    <p><strong>When the subscription is cheap relative to your attention.</strong> Every thing you build is a thing you now maintain — keys rotate, dependencies drift, a free tier changes its terms. That cost is small but permanent, and it is paid by you.</p>
 
-    <p>Same as oil paint, really. Anyone can cover a canvas. Sweating the craft is the whole job.</p>
+    <p>What’s left after those three exclusions is still a surprisingly large pile. Most of the small tools you pay monthly for are a form, a table, and a rule.</p>
+
+    <p>Same as oil paint, really. Anyone can cover a canvas. Sweating the craft is the whole job — the difference is that the canvas just got a lot cheaper.</p>
 
     <div class="endcta">
       <h2>Go and lose to your colleagues</h2>
-      <p>Open a live room, send the code round the office, and find out who can genuinely put a pin within 50km of Ha Long Bay. The leaderboard is permanent.</p>
+      <p>Open a live room, send the code round the office, and find out who can genuinely put a pin within 50km of Ha Long Bay. Five minutes, and the leaderboard is permanent.</p>
       <div class="cta">
         <a class="btn accent" href="https://terra-incognita-amber.vercel.app" target="_blank" rel="noopener">Play Terra Incognita</a>
-        <a class="btn" href="https://terra-incognita-amber.vercel.app/architecture" target="_blank" rel="noopener">How it's built</a>
+        <a class="btn" href="https://terra-incognita-amber.vercel.app/architecture" target="_blank" rel="noopener">How it’s built</a>
         <a class="btn" href="https://github.com/JamesPortman/terra-incognita" target="_blank" rel="noopener">GitHub</a>
       </div>
     </div>
