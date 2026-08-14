@@ -41,6 +41,17 @@
   .proj.is-first{padding-top:0;}
   .proj .thumb{aspect-ratio:4/3;border-radius:3px;overflow:hidden;border:1px solid var(--line);background:var(--paper-2);}
   .proj .thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+  .proj .thumb a.zoom{display:block;height:100%;cursor:zoom-in;}
+  .proj .thumb a.zoom:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+  .proj .thumb a.zoom:hover img{opacity:0.92;}
+
+  /* full-size viewer */
+  .viewer{position:fixed;inset:0;z-index:60;background:rgba(28,25,22,0.92);display:flex;align-items:center;justify-content:center;padding:28px;cursor:zoom-out;}
+  .viewer[hidden]{display:none;}
+  .viewer img{max-width:min(1400px,96vw);max-height:88vh;width:auto;height:auto;border:1px solid rgba(255,255,255,0.12);border-radius:3px;box-shadow:0 24px 60px rgba(0,0,0,0.45);}
+  .viewer .hint{position:absolute;bottom:20px;left:0;right:0;text-align:center;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#cfc8bd;}
+  .viewer button.close{position:absolute;top:18px;right:22px;background:transparent;border:1px solid rgba(255,255,255,0.25);color:var(--paper);border-radius:3px;font:inherit;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;padding:8px 14px;cursor:pointer;}
+  .viewer button.close:hover{background:rgba(255,255,255,0.1);}
   .proj .num{font-family:var(--serif);font-size:14px;color:var(--accent);letter-spacing:0.1em;}
   .proj h2{font-family:var(--serif);font-weight:500;font-size:30px;line-height:1.05;margin:6px 0 8px;}
   .proj p{color:var(--ink-soft);font-size:16px;max-width:540px;}
@@ -93,7 +104,7 @@
 
     <article class="proj" data-cats="apps">
       <div class="thumb">
-        <img src="assets/noexit-hero.jpg" alt="No Exit host console during a staged game: three teams at 4, 3 and 1 puzzles solved, standings, and a live clock" loading="lazy" />
+        <a class="zoom" href="assets/noexit-full.jpg" aria-label="No Exit host console, full size"><img src="assets/noexit-hero.jpg" alt="No Exit host console during a staged game: three teams at 4, 3 and 1 puzzles solved, standings, and a live clock" loading="lazy" /></a>
       </div>
       <div>
         <h2>No Exit</h2>
@@ -107,7 +118,7 @@
 
     <article class="proj" data-cats="apps">
       <div class="thumb">
-        <img src="assets/terra-day-hero.jpg" alt="Terra Incognita in daylight theme — a photograph beside a cream world map waiting for your pin" loading="lazy" />
+        <a class="zoom" href="assets/terra-day-full.jpg" aria-label="Terra Incognita in daylight, full size"><img src="assets/terra-day-hero.jpg" alt="Terra Incognita in daylight theme — a photograph beside a cream world map waiting for your pin" loading="lazy" /></a>
       </div>
       <div>
         <h2>Terra Incognita</h2>
@@ -213,6 +224,12 @@
   </div>
 </section>
 
+<div class="viewer" id="viewer" hidden role="dialog" aria-modal="true" aria-label="Full size image">
+  <button type="button" class="close" id="viewer-close">Close</button>
+  <img id="viewer-img" src="" alt="" />
+  <div class="hint">Click anywhere, or press Esc, to close</div>
+</div>
+
 <footer class="site-foot">
   <div class="wrap">© 2026 James Portman</div>
 </footer>
@@ -224,6 +241,32 @@
     <button id="consent-accept" type="button">Accept</button>
   </div>
 </div>
+<script>
+  // Thumbnails open the full-size shot in place.
+  (function(){
+    var v=document.getElementById('viewer'), img=document.getElementById('viewer-img');
+    var closeBtn=document.getElementById('viewer-close'), last=null;
+    function open(href,alt){
+      img.src=href; img.alt=alt||'';
+      v.hidden=false; closeBtn.focus();
+      document.body.style.overflow='hidden';
+    }
+    function close(){
+      v.hidden=true; img.src=''; document.body.style.overflow='';
+      if(last)last.focus();
+    }
+    document.querySelectorAll('a.zoom').forEach(function(a){
+      a.addEventListener('click',function(e){
+        if(e.metaKey||e.ctrlKey||e.shiftKey||e.button!==0)return; // let new-tab clicks through
+        e.preventDefault(); last=a;
+        var t=a.querySelector('img');
+        open(a.getAttribute('href'), t?t.getAttribute('alt'):'');
+      });
+    });
+    v.addEventListener('click',close);
+    document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&!v.hidden)close(); });
+  })();
+</script>
 <script>
   // Category tabs. Claude Apps is the landing view; /#media and /#paintings filter to those.
   (function(){
