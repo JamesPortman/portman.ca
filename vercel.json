@@ -17,16 +17,16 @@
   ],
   "rewrites": [
     {
-      "source": "/terra-incognita/:path*",
-      "destination": "https://terra-incognita-amber.vercel.app/:path*"
+      "source": "/terra-incognita/(.*)",
+      "destination": "https://terra-incognita-amber.vercel.app/$1"
     },
     {
-      "source": "/no-exit/:path*",
-      "destination": "https://escape-room-six-gamma.vercel.app/:path*"
+      "source": "/no-exit/(.*)",
+      "destination": "https://escape-room-six-gamma.vercel.app/$1"
     },
     {
-      "source": "/beyond-doubt/:path*",
-      "destination": "https://beyonddoubt.vercel.app/:path*"
+      "source": "/beyond-doubt/(.*)",
+      "destination": "https://beyonddoubt.vercel.app/$1"
     }
   ]
 }

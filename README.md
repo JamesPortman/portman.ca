@@ -34,6 +34,19 @@ own API through its own prefix, and the apps derive that prefix at runtime from
 `location.pathname`. If you add a fourth app, give it a prefix and teach it the
 same trick; do not add a root-level `/api` rewrite.
 
+### The rewrite pattern is `(.*)`, not `:path*`
+
+`/no-exit/:path*` reads as "the prefix and anything under it" and is not. Vercel
+compiles `source` with `strict: true`, which removes path-to-regexp's optional
+trailing slash, so that pattern matches `/no-exit` and `/no-exit/js/api.js` but
+**not** `/no-exit/`. Paired with the bare-path redirect above, every visitor was
+sent to the one shape the rewrite could not match, and all three games 404'd.
+
+`(.*)` matches the empty remainder, so it covers `/no-exit/` and deeper
+trailing-slash paths too. `npm test` compiles this file with Vercel's own
+`@vercel/routing-utils` and asserts where each path lands — run it after touching
+`vercel.json`, and add a case for any route you add.
+
 ### The prefix has to reach each app before its subpath works
 
 A game only survives being served here once its own build knows the prefix. Each
