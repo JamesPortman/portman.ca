@@ -10,6 +10,23 @@
       "source": "/writing/terra-incognita/",
       "destination": "/writing/dont-subscribe-build-it/",
       "permanent": true
+    },
+    { "source": "/terra-incognita", "destination": "/terra-incognita/", "permanent": true },
+    { "source": "/no-exit", "destination": "/no-exit/", "permanent": true },
+    { "source": "/beyond-doubt", "destination": "/beyond-doubt/", "permanent": true }
+  ],
+  "rewrites": [
+    {
+      "source": "/terra-incognita/(.*)",
+      "destination": "https://terra-incognita-amber.vercel.app/$1"
+    },
+    {
+      "source": "/no-exit/(.*)",
+      "destination": "https://escape-room-six-gamma.vercel.app/$1"
+    },
+    {
+      "source": "/beyond-doubt/(.*)",
+      "destination": "https://beyonddoubt.vercel.app/$1"
     }
   ]
 }
