@@ -26,7 +26,7 @@
     },
     {
       "source": "/beyond-doubt/:path*",
-      "destination": "https://beyond-doubt-is-not-yet-deployed.invalid/:path*"
+      "destination": "https://beyonddoubt.vercel.app/:path*"
     }
   ]
 }

@@ -13,7 +13,7 @@ three read as part of the site rather than as links out to `*.vercel.app`:
 |---|---|
 | `/terra-incognita/` | `terra-incognita-amber.vercel.app` |
 | `/no-exit/` | `escape-room-six-gamma.vercel.app` |
-| `/beyond-doubt/` | **not deployed yet — see below** |
+| `/beyond-doubt/` | `beyonddoubt.vercel.app` (project `beyonddoubt`, no hyphen) |
 
 Each app keeps its own repository, its own Vercel project and its own deploy
 pipeline. Nothing here rebuilds or vendors them; this is routing only, so a
@@ -34,17 +34,18 @@ own API through its own prefix, and the apps derive that prefix at runtime from
 `location.pathname`. If you add a fourth app, give it a prefix and teach it the
 same trick; do not add a root-level `/api` rewrite.
 
-### Beyond Doubt is wired but not live
+### The prefix has to reach each app before its subpath works
 
-The rewrite points at `beyond-doubt-is-not-yet-deployed.invalid`, a reserved TLD
-(RFC 2606) that can never resolve to anyone's site. Deploying the game means:
+A game only survives being served here once its own build knows the prefix. Each
+of the three learned that separately, and until that change is on the branch the
+upstream project deploys, its subpath will load the page and then 404 its own
+assets and API. Order matters: land the app change first, then this.
 
-1. Create the Vercel project from `JamesPortman/beyond-doubt` (`engine/vercel.json`
-   is its config) and give it Postgres, `RESEND_API_KEY` and the rest of the env
-   named in the repo's production checklist.
-2. Replace that placeholder host in `vercel.json` with the real deployment URL.
-3. Set the app's `ALLOWED_ORIGINS` to `https://www.portman.ca` — behind this proxy
-   the browser's origin is this domain, not the game's own. A mismatch fails
-   silently and looks like the API is down.
+`beyonddoubt` is the one to watch, because unlike the other two it does not set
+`git.deploymentEnabled: false` — it deploys straight from a push to `main`, with
+no Actions workflow in between. So merging its prefix change is the deploy.
 
-Until then `/beyond-doubt/` returns a 502 and the homepage card links into it.
+No CORS change is needed for any of them. The browser only ever talks to
+portman.ca; Vercel proxies to the upstream server-side, so these are same-origin
+requests and the apps' `ALLOWED_ORIGINS` / CORS settings never come into play.
+They still matter for the games' own `*.vercel.app` URLs, which keep working.
