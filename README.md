@@ -62,3 +62,22 @@ No CORS change is needed for any of them. The browser only ever talks to
 portman.ca; Vercel proxies to the upstream server-side, so these are same-origin
 requests and the apps' `ALLOWED_ORIGINS` / CORS settings never come into play.
 They still matter for the games' own `*.vercel.app` URLs, which keep working.
+
+## The World Cup pool is a subpath too, but mounted differently
+
+`/worldcup` proxies the `worldcup-pool` project, like the three games — with one
+difference worth knowing before editing `vercel.json`.
+
+The games are built for a domain root and work out their prefix at runtime, so this
+site **strips** it: `/no-exit/(.*)` sends `$1` on alone. The pool is a Next app built
+with `basePath: '/worldcup'`, so it expects the prefix and this site **keeps** it:
+`/worldcup/(.*)` sends `/worldcup/$1`. Drop that and every route 404s upstream.
+
+It needs no trailing-slash redirect either. Next routes its own paths and emits
+absolute asset URLs already carrying the base path, so the reason the games need
+`/no-exit` → `/no-exit/` does not apply.
+
+If you add another Next app, `basePath` is the cheaper route: it covers routing,
+links and `/_next` assets for free. The one thing it does not cover is `fetch()`,
+which is why the pool routes API calls through `apiUrl()` in its own `lib/site.ts`.
+

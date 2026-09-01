@@ -40,6 +40,16 @@ const cases = [
   ['/beyond-doubt/',              'https://beyonddoubt.vercel.app/'],
   ['/beyond-doubt/how.html',      'https://beyonddoubt.vercel.app/how.html'],
   ['/beyond-doubt/api/auth/request','https://beyonddoubt.vercel.app/api/auth/request'],
+  // The pool is a Next app built with basePath: '/worldcup', so unlike the games the
+  // prefix is NOT stripped — the upstream expects it. It also needs no trailing-slash
+  // redirect: Next routes its own paths and its assets are absolute, not relative.
+  ['/worldcup',                   'https://worldcup-pool-ebon.vercel.app/worldcup'],
+  ['/worldcup/how-it-works',      'https://worldcup-pool-ebon.vercel.app/worldcup/how-it-works'],
+  ['/worldcup/api/pools',         'https://worldcup-pool-ebon.vercel.app/worldcup/api/pools'],
+  ['/worldcup/_next/static/x.js', 'https://worldcup-pool-ebon.vercel.app/worldcup/_next/static/x.js'],
+  ['/worldcup/pools/ABC123',      'https://worldcup-pool-ebon.vercel.app/worldcup/pools/ABC123'],
+  ['/worldcuppers',               'FALLTHROUGH'],
+
   // pre-existing behaviour must survive
   ['/writing/terra-incognita',    '308 -> /writing/dont-subscribe-build-it'],
   ['/writing/terra-incognita/',   '308 -> /writing/dont-subscribe-build-it/'],
