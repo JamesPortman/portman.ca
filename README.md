@@ -63,19 +63,21 @@ portman.ca; Vercel proxies to the upstream server-side, so these are same-origin
 requests and the apps' `ALLOWED_ORIGINS` / CORS settings never come into play.
 They still matter for the games' own `*.vercel.app` URLs, which keep working.
 
-## The World Cup pool is a subdomain, not a subpath
+## The World Cup pool is a subpath too, but mounted differently
 
-`worldcup.portman.ca` serves its own Vercel project directly. There is no rewrite
-here for it and there should not be: DNS points the subdomain at that project, so
-nothing passes through this one.
+`/worldcup` proxies the `worldcup-pool` project, like the three games — with one
+difference worth knowing before editing `vercel.json`.
 
-It is worth knowing why it differs from the three games. A subpath forces the app
-to know it is not at the root — every asset and API path needs the prefix, which
-is what the `BASE`/`currentBase()` work in each game repo exists for. A subdomain
-gives the app its own root, so none of that applies. The pool needed no code
-change at all to move; it had no absolute URLs to begin with.
+The games are built for a domain root and work out their prefix at runtime, so this
+site **strips** it: `/no-exit/(.*)` sends `$1` on alone. The pool is a Next app built
+with `basePath: '/worldcup'`, so it expects the prefix and this site **keeps** it:
+`/worldcup/(.*)` sends `/worldcup/$1`. Drop that and every route 404s upstream.
 
-The trade is reach: a subdomain is a separate site to a search engine, with its
-own sitemap and its own reputation. That is fine here, and it is why
-`worldcup.portman.ca` is **not** listed in this site's `sitemap.xml` — a sitemap
-covers one host. The pool names itself canonical in its own `app/layout.tsx`.
+It needs no trailing-slash redirect either. Next routes its own paths and emits
+absolute asset URLs already carrying the base path, so the reason the games need
+`/no-exit` → `/no-exit/` does not apply.
+
+If you add another Next app, `basePath` is the cheaper route: it covers routing,
+links and `/_next` assets for free. The one thing it does not cover is `fetch()`,
+which is why the pool routes API calls through `apiUrl()` in its own `lib/site.ts`.
+

@@ -27,6 +27,14 @@
     {
       "source": "/beyond-doubt/(.*)",
       "destination": "https://beyonddoubt.vercel.app/$1"
+    },
+    {
+      "source": "/worldcup",
+      "destination": "https://worldcup-pool-ebon.vercel.app/worldcup"
+    },
+    {
+      "source": "/worldcup/(.*)",
+      "destination": "https://worldcup-pool-ebon.vercel.app/worldcup/$1"
     }
   ]
 }
