@@ -41,6 +41,8 @@
   .proj.is-first{padding-top:0;}
   .proj .thumb{aspect-ratio:4/3;border-radius:3px;overflow:hidden;border:1px solid var(--line);background:var(--paper-2);}
   .proj .thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+  .proj .thumb.portrait{background:#4a4f65;}
+  .proj .thumb.portrait img{object-fit:contain;}
   .proj .thumb a.zoom{display:block;height:100%;cursor:zoom-in;}
   .proj .thumb a.zoom:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
   .proj .thumb a.zoom:hover img{opacity:0.92;}
@@ -210,7 +212,7 @@
     </article>
 
     <article class="proj" data-cats="media">
-      <div class="thumb">
+      <div class="thumb portrait">
         <a class="zoom" href="assets/baylight-full.jpg" aria-label="Baylight: After Image cover, full size"><img src="assets/baylight-hero.jpg" alt="Baylight: After Image cover — a near-future surveillance thriller" loading="lazy" /></a>
       </div>
       <div>
