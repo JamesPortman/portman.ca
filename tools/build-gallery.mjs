@@ -67,10 +67,12 @@ function makeThumb({ id, image }) {
   rmSync(src, { force: true });
 }
 
-// The caption names each work, so the image itself is decorative (alt="").
+// The caption names each work and its medium — a painting and the photograph
+// it was painted from share a title — so the image is decorative (alt="").
 const tile = (w) =>
-  `            <a href="${SITE}${w.path}" target="_blank" rel="noopener" title="${esc(w.title)}">` +
-  `<img src="assets/gallery/${w.id}.jpg" alt="" loading="lazy" /><span>${esc(w.title)}</span></a>`;
+  `            <a href="${SITE}${w.path}" target="_blank" rel="noopener" title="${esc(w.title)} — ${w.kind}">` +
+  `<img src="assets/gallery/${w.id}.jpg" alt="" loading="lazy" />` +
+  `<span>${esc(w.title)}<em>${w.kind}</em></span></a>`;
 
 const [home, photos] = await Promise.all([text(SITE + '/'), text(SITE + '/photographs')]);
 const wanted = [
