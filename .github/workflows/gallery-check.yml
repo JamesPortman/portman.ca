@@ -1,8 +1,15 @@
-name: Gallery drift check
+# The file keeps its original name so the Actions tab keeps this workflow's
+# run history; it now covers two snapshots that can silently go stale.
+name: Site drift checks
 
-# The Paintings grid on portman.ca is a static snapshot of georgianartist.com.
-# This notices when the gallery has changed and the snapshot hasn't.
-# Fix with: node tools/build-gallery.mjs && git commit -am "Rebuild gallery"
+# Two things in this repo are generated and then committed, so both can fall
+# out of step with their source without anything failing:
+#
+#   * The Paintings grid is a snapshot of georgianartist.com.
+#   * sitemap.xml is a snapshot of the pages and routes in this repo.
+#
+# Each check opens its own issue, so one drifting does not hide the other.
+# Fix either with the command the issue quotes, then commit and push.
 
 on:
   schedule:
@@ -17,12 +24,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          # build-sitemap.mjs dates every page from the last commit that touched
+          # it. A shallow clone has only the tip commit and treats it as having
+          # no parents, so git reports THAT commit for every file — vercel.json
+          # comes back as today rather than the day the route changed. The dates
+          # are wrong rather than missing, which is worse: nothing errors, and
+          # the check simply reports drift every week until someone looks.
+          fetch-depth: 0
+
       - uses: actions/setup-node@v7
         with:
           node-version: 22
 
       - name: Compare the grid against the live gallery
-        id: drift
+        id: gallery
         run: |
           set +e
           OUT=$(node tools/build-gallery.mjs --check 2>&1)
@@ -35,48 +51,90 @@ jobs:
           } >> "$GITHUB_OUTPUT"
           echo "drifted=$([ $CODE -eq 0 ] && echo false || echo true)" >> "$GITHUB_OUTPUT"
 
-      - name: Open or update an issue when it has drifted
-        if: steps.drift.outputs.drifted == 'true'
+      # always(), so a gallery failure (the live site being down, say) still
+      # lets the sitemap check run and report on its own.
+      - name: Compare sitemap.xml against the repo
+        id: sitemap
+        if: always()
+        run: |
+          set +e
+          OUT=$(node tools/build-sitemap.mjs --check 2>&1)
+          CODE=$?
+          echo "$OUT"
+          {
+            echo "report<<EOF"
+            echo "$OUT"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+          echo "drifted=$([ $CODE -eq 0 ] && echo false || echo true)" >> "$GITHUB_OUTPUT"
+
+      - name: Open or update an issue for whatever drifted
+        if: always() && (steps.gallery.outputs.drifted == 'true' || steps.sitemap.outputs.drifted == 'true')
         uses: actions/github-script@v9
+        # Reports reach the script through the environment rather than being
+        # interpolated into it, so nothing in a report can run as code.
+        env:
+          GALLERY_DRIFTED: ${{ steps.gallery.outputs.drifted }}
+          GALLERY_REPORT: ${{ steps.gallery.outputs.report }}
+          SITEMAP_DRIFTED: ${{ steps.sitemap.outputs.drifted }}
+          SITEMAP_REPORT: ${{ steps.sitemap.outputs.report }}
         with:
           script: |
-            const title = 'Paintings grid is out of date with georgianartist.com';
-            const body = [
-              'The gallery has changed since the grid on portman.ca was generated.',
-              '',
-              '```',
-              `${{ steps.drift.outputs.report }}`,
-              '```',
-              '',
-              'To fix:',
-              '',
-              '```bash',
-              'node tools/build-gallery.mjs',
-              'git commit -am "Rebuild the gallery grid"',
-              'git push',
-              '```',
-            ].join('\n');
+            const checks = [
+              {
+                drifted: process.env.GALLERY_DRIFTED === 'true',
+                report: process.env.GALLERY_REPORT || '',
+                label: 'gallery-drift',
+                title: 'Paintings grid is out of date with georgianartist.com',
+                intro: 'The gallery has changed since the grid on portman.ca was generated.',
+                fix: 'node tools/build-gallery.mjs\ngit commit -am "Rebuild the gallery grid"\ngit push',
+              },
+              {
+                drifted: process.env.SITEMAP_DRIFTED === 'true',
+                report: process.env.SITEMAP_REPORT || '',
+                label: 'sitemap-drift',
+                title: 'sitemap.xml is out of date with the repo',
+                intro: 'A page has changed, or a route has moved, since sitemap.xml was generated.',
+                fix: 'node tools/build-sitemap.mjs\ngit commit -am "Rebuild the sitemap"\ngit push',
+              },
+            ];
 
-            const { data: open } = await github.rest.issues.listForRepo({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              state: 'open',
-              labels: 'gallery-drift',
-            });
+            for (const check of checks.filter((c) => c.drifted)) {
+              const body = [
+                check.intro,
+                '',
+                '```',
+                check.report,
+                '```',
+                '',
+                'To fix:',
+                '',
+                '```bash',
+                check.fix,
+                '```',
+              ].join('\n');
 
-            if (open.length) {
-              await github.rest.issues.createComment({
+              const { data: open } = await github.rest.issues.listForRepo({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                issue_number: open[0].number,
-                body,
+                state: 'open',
+                labels: check.label,
               });
-            } else {
-              await github.rest.issues.create({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                title,
-                body,
-                labels: ['gallery-drift'],
-              });
+
+              if (open.length) {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: open[0].number,
+                  body,
+                });
+              } else {
+                await github.rest.issues.create({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  title: check.title,
+                  body,
+                  labels: [check.label],
+                });
+              }
             }

@@ -46,9 +46,17 @@ const GAMES = [...new Set(
     .filter((p) => p && !p.startsWith('/writing')),
 )].map((p) => (p === '/worldcup' ? p : `${p}/`));
 
-const lastCommit = (file) =>
-  execFileSync('git', ['log', '-1', '--format=%ad', '--date=short', '--', file],
+const lastCommit = (file) => {
+  const date = execFileSync('git', ['log', '-1', '--format=%ad', '--date=short', '--', file],
     { cwd: ROOT, encoding: 'utf8' }).trim();
+  // Empty means the file is on disk but has never been committed — a page added
+  // and not yet checked in. Emitting an empty <lastmod> would be a sitemap that
+  // validates and tells search engines nothing, so stop and name the cause.
+  // (A shallow clone does not land here: it reports the tip commit for every
+  // file, which is wrong but not blank. See the workflow's fetch-depth note.)
+  if (!date) throw new Error(`${file} has no commit yet — commit it before building the sitemap`);
+  return date;
+};
 
 const urls = [];
 for (const [path, file, priority] of PAGES) {
