@@ -1,5 +1,7 @@
 # portman.ca
 
+Built with [Claude Code](https://claude.com/claude-code).
+
 Static personal site on Vercel. No build step — `index.html`, `about/`, `writing/`
 and `assets/` are served as they are. `middleware.js` gates `/admin` behind HTTP
 Basic auth (`ADMIN_USER` / `ADMIN_PASS`).
@@ -81,3 +83,8 @@ If you add another Next app, `basePath` is the cheaper route: it covers routing,
 links and `/_next` assets for free. The one thing it does not cover is `fetch()`,
 which is why the pool routes API calls through `apiUrl()` in its own `lib/site.ts`.
 
+
+## License
+
+The code is MIT — see [`LICENSE`](LICENSE). The paintings, photographs, other
+images and the writing are © James Portman, all rights reserved — see [`NOTICE`](NOTICE).
