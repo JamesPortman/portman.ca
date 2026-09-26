@@ -46,8 +46,9 @@ sent to the one shape the rewrite could not match, and all three games 404'd.
 
 `(.*)` matches the empty remainder, so it covers `/no-exit/` and deeper
 trailing-slash paths too. `npm test` compiles this file with Vercel's own
-`@vercel/routing-utils` and asserts where each path lands — run it after touching
-`vercel.json`, and add a case for any route you add.
+`@vercel/routing-utils` and asserts where each path lands. CI runs it on every push and pull request
+(`.github/workflows/routes.yml`); run it locally after touching `vercel.json`,
+and add a case for any route you add.
 
 ### The prefix has to reach each app before its subpath works
 
