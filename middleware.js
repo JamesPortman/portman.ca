@@ -5,7 +5,24 @@ export const config = {
   matcher: ['/admin', '/admin/:path*'],
 };
 
-export default function middleware(req) {
+// Constant-time string comparison. The Edge runtime has no node:crypto
+// timingSafeEqual, so hash both sides with SHA-256 (fixed 32-byte output, which
+// also hides length differences) and XOR every byte of the digests, never
+// returning early.
+const encoder = new TextEncoder();
+async function safeEqual(a, b) {
+  const [da, db] = await Promise.all([
+    crypto.subtle.digest('SHA-256', encoder.encode(a)),
+    crypto.subtle.digest('SHA-256', encoder.encode(b)),
+  ]);
+  const x = new Uint8Array(da);
+  const y = new Uint8Array(db);
+  let diff = 0;
+  for (let i = 0; i < x.length; i++) diff |= x[i] ^ y[i];
+  return diff === 0;
+}
+
+export default async function middleware(req) {
   const user = process.env.ADMIN_USER;
   const pass = process.env.ADMIN_PASS;
 
@@ -21,7 +38,9 @@ export default function middleware(req) {
       const i = decoded.indexOf(':');
       const u = decoded.slice(0, i);
       const p = decoded.slice(i + 1);
-      if (u === user && p === pass) {
+      // Both comparisons always run (no short-circuit on the username).
+      const [userOk, passOk] = await Promise.all([safeEqual(u, user), safeEqual(p, pass)]);
+      if (i !== -1 && userOk && passOk) {
         return; // authorized — continue to the requested route
       }
     } catch (_) {

@@ -84,6 +84,19 @@ links and `/_next` assets for free. The one thing it does not cover is `fetch()`
 which is why the pool routes API calls through `apiUrl()` in its own `lib/site.ts`.
 
 
+## Security headers stop at the proxied apps
+
+`vercel.json` adds `X-Content-Type-Options`, `Referrer-Policy`,
+`X-Frame-Options: SAMEORIGIN` and a minimal `Permissions-Policy` to this site's
+own pages. Its `source` excludes `/terra-incognita/`, `/no-exit/`,
+`/beyond-doubt/` and `/worldcup`: each app sends its own headers (some stricter
+than these), and it is the app that knows what it needs. There is no
+Content-Security-Policy yet — GA, the Looker embed on `/admin` and inline scripts
+would all need allowing first. `npm test` asserts which paths get the headers.
+
+`.vercelignore` keeps `tools/`, `.github/` and repo docs out of the deployment;
+with no build step, anything uploaded is publicly served.
+
 ## License
 
 The code is MIT — see [`LICENSE`](LICENSE). The paintings, photographs, other
