@@ -1,0 +1,29 @@
+name: CI
+
+# The routing tests and the sitemap check on every pull request and every push
+# to main. (gallery-check.yml separately watches the live gallery each week.)
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # build-sitemap.mjs dates pages from their last commit, so it needs
+          # full history (see gallery-check.yml for the long version).
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+
+      - name: vercel.json routes and headers
+        run: npm test
+
+      - name: sitemap.xml matches the repo
+        run: node tools/build-sitemap.mjs --check
