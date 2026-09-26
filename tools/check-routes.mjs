@@ -64,9 +64,14 @@ const cases = [
   ['/terra-incognita-notes',      'FALLTHROUGH'],
 ];
 
+// Header rules compile to `continue: true` routes: they decorate a response and
+// fall through, so they never decide where a path lands. Keep them apart.
+const headerRoutes = norm.filter((r) => r.continue && r.headers);
+const landing = norm.filter((r) => !r.continue);
+
 let fails = 0;
 for (const [p, want] of cases) {
-  const hit = norm.find((r) => r.src && new RegExp(r.src).test(p));
+  const hit = landing.find((r) => r.src && new RegExp(r.src).test(p));
   let got;
   if (!hit) got = 'FALLTHROUGH';
   else if (hit.headers?.Location) {
@@ -80,5 +85,43 @@ for (const [p, want] of cases) {
   if (!ok) fails++;
   console.log(`${ok ? 'ok  ' : 'FAIL'} ${p.padEnd(38)} ${got}${ok ? '' : `   (expected ${want})`}`);
 }
+// Security headers apply to this site's own pages, and deliberately not to the
+// proxied apps: each app sends its own (some stricter — DENY, no-referrer), and
+// the app, not this repo, knows what it needs to frame or share.
+const SECURITY = {
+  'X-Content-Type-Options': 'nosniff',
+  'Referrer-Policy': 'strict-origin-when-cross-origin',
+  'X-Frame-Options': 'SAMEORIGIN',
+  'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+};
+const headerCases = [
+  ['/', true],
+  ['/about/', true],
+  ['/admin', true],
+  ['/assets/site.css', true],
+  ['/writing/dont-subscribe-build-it/', true],
+  ['/worldcuppers', true],
+  ['/no-exitful', true],
+  ['/terra-incognita-notes', true],
+  ['/terra-incognita/', false],
+  ['/terra-incognita/api/rooms', false],
+  ['/no-exit/', false],
+  ['/no-exit/css/style.css', false],
+  ['/beyond-doubt/', false],
+  ['/beyond-doubt/api/auth/request', false],
+  ['/worldcup', false],
+  ['/worldcup/api/pools', false],
+];
+console.log('');
+for (const [p, want] of headerCases) {
+  const got = {};
+  for (const r of headerRoutes) if (new RegExp(r.src).test(p)) Object.assign(got, r.headers);
+  const ok = want
+    ? Object.entries(SECURITY).every(([k, v]) => got[k] === v)
+    : Object.keys(SECURITY).every((k) => !(k in got));
+  if (!ok) fails++;
+  console.log(`${ok ? 'ok  ' : 'FAIL'} ${p.padEnd(38)} ${want ? 'security headers' : 'no site headers (app sends its own)'}`);
+}
+
 console.log(fails === 0 ? '\nAll route cases pass.' : `\n${fails} FAILING`);
 process.exit(fails ? 1 : 0);

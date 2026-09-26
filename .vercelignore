@@ -1,0 +1,20 @@
+# Files that exist for maintaining the site, not for serving it. Everything not
+# listed here is uploaded and — with no build step — publicly served as-is.
+#
+# Deliberately NOT ignored: vercel.json (routing/headers), middleware.js (the
+# /admin gate), package.json + package-lock.json (module type and the install
+# Vercel runs), and every page/asset directory.
+
+# Dev tooling: route checker, sitemap and gallery generators.
+tools/
+# CI workflows.
+.github/
+# Repo docs and local notes (see .gitignore for the untracked ones).
+README.md
+PLAN.md
+ANALYTICS-PLAN.md
+ANALYTICS-SETUP.md
+CLAUDE.md
+.claude/
+.gitignore
+node_modules/
