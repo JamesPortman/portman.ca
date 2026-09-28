@@ -4,10 +4,10 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Don’t subscribe to it. Build it. — James Portman</title>
-<meta name="description" content="Terra Incognita is my own version of a commercial geography game, and it costs nothing a month to run. A parts list, the bit that is actually hard, and when copying a subscription product is a bad idea." />
+<meta name="description" content="Terra Incognita is my own version of a commercial geography game, and it costs nothing extra a month to run. A parts list, the bit that is actually hard, and when copying a subscription product is a bad idea." />
 <link rel="canonical" href="https://www.portman.ca/writing/dont-subscribe-build-it/" />
 <meta property="og:title" content="Don’t subscribe to it. Build it." />
-<meta property="og:description" content="$0 a month to run. What you actually have to replace, and when not to bother." />
+<meta property="og:description" content="Nothing extra a month to run. What you actually have to replace, and when not to bother." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.portman.ca/writing/dont-subscribe-build-it/" />
 <meta property="og:image" content="https://www.portman.ca/assets/dont-subscribe-og.jpg" />
@@ -15,7 +15,7 @@
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Don’t subscribe to it. Build it." />
-<meta name="twitter:description" content="$0 a month to run. What you actually have to replace, and when not to bother." />
+<meta name="twitter:description" content="Nothing extra a month to run. What you actually have to replace, and when not to bother." />
 <meta name="twitter:image" content="https://www.portman.ca/assets/dont-subscribe-og.jpg" />
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -101,7 +101,7 @@
     <a class="back" href="/writing/">← Writing</a>
     <div class="kicker">Build note · Claude Apps</div>
     <h1>Don’t subscribe to it. Build it.</h1>
-    <p class="standfirst">Terra Incognita is my own version of a commercial geography game. It costs nothing a month to run — and the surprising part is how little of it was actually hard.</p>
+    <p class="standfirst">Terra Incognita is my own version of a commercial geography game. It costs nothing extra a month to run — and the surprising part is how little of it was actually hard.</p>
     <div class="byline"><b>James Portman</b> · Build note</div>
 
     <figure class="hero-shot">
@@ -120,7 +120,7 @@
 
     <div class="facts">
       <div><div class="n">5,000</div><div class="l">Points/round</div></div>
-      <div><div class="n">$0</div><div class="l">Hosting a month</div></div>
+      <div><div class="n">4</div><div class="l">Languages</div></div>
       <div><div class="n">202</div><div class="l">Real places</div></div>
       <div><div class="n">386</div><div class="l">Tests</div></div>
     </div>
@@ -135,9 +135,9 @@
 
     <h2>Most of the parts are free</h2>
 
-    <p>The world map is country outlines from open GeoJSON, converted once into inline SVG paths. No map provider, no tiles, no key — it is just shapes in the page, which is also why the game loads instantly. The photos come from Wikimedia Commons. The distance between your pin and the truth is the haversine formula, about a dozen lines. Live rooms are a Redis key with a four-hour expiry; the all-time leaderboard is one Postgres table. Both sit on free tiers, as does the hosting.</p>
+    <p>The world map is country outlines from open GeoJSON, converted once into inline SVG paths. No map provider, no tiles, no key — it is just shapes in the page, which is also why the game loads instantly. The photos come from Wikimedia Commons. The distance between your pin and the truth is the haversine formula, about a dozen lines. Live rooms are a Redis key with a four-hour expiry; the all-time leaderboard is one Postgres table. Both sit on free tiers, and the hosting is a plan I already pay for.</p>
 
-    <p>Exactly one dependency is metered: Google Street View, for the mode that drops you somewhere random on Earth. Everything else — all 202 hand-picked locations, the live rooms, the weekly board — runs at no monthly cost. Turn the Street View mode off and the running cost of the whole thing is zero.</p>
+    <p>Exactly one dependency is metered: Google Street View, for the mode that drops you somewhere random on Earth. Everything else — all 202 hand-picked locations, the live rooms, the weekly board — adds nothing to the monthly bill. Turn the Street View mode off and the game costs nothing extra to run.</p>
 
     <h2>The hard part isn’t the features</h2>
 
@@ -149,7 +149,7 @@
 
     <h2>What it actually replaced</h2>
 
-    <p>The game is the fun example. The one that pays for itself is my painting gallery: it was a Squarespace store, and I rebuilt it as a custom stack on the same free hosting. Same shop, same domain, same catalogue — $45 a month to $0.</p>
+    <p>The game is the fun example. The one that pays for itself is my painting gallery: it was a Squarespace store, and I rebuilt it as a custom stack on the same hosting. Same shop, same domain, same catalogue — and now I own every line of it instead of renting it for $45 a month.</p>
 
     <blockquote>Building it is the easy part. Maintaining it is forever. That’s the trade, and it’s the only part of this worth thinking hard about.</blockquote>
 
