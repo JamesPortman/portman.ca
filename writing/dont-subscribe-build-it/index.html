@@ -121,8 +121,8 @@
     <div class="facts">
       <div><div class="n">5,000</div><div class="l">Points/round</div></div>
       <div><div class="n">$0</div><div class="l">Hosting a month</div></div>
-      <div><div class="n">164</div><div class="l">Real places</div></div>
-      <div><div class="n">74</div><div class="l">Tests</div></div>
+      <div><div class="n">202</div><div class="l">Real places</div></div>
+      <div><div class="n">386</div><div class="l">Tests</div></div>
     </div>
 
     <h2>Written as a product it sounds big. Written as a parts list it isn’t.</h2>
@@ -137,7 +137,7 @@
 
     <p>The world map is country outlines from open GeoJSON, converted once into inline SVG paths. No map provider, no tiles, no key — it is just shapes in the page, which is also why the game loads instantly. The photos come from Wikimedia Commons. The distance between your pin and the truth is the haversine formula, about a dozen lines. Live rooms are a Redis key with a four-hour expiry; the all-time leaderboard is one Postgres table. Both sit on free tiers, as does the hosting.</p>
 
-    <p>Exactly one dependency is metered: Google Street View, for the mode that drops you somewhere random on Earth. Everything else — all 164 hand-picked locations, the live rooms, the weekly board — runs at no monthly cost. Turn the Street View mode off and the running cost of the whole thing is zero.</p>
+    <p>Exactly one dependency is metered: Google Street View, for the mode that drops you somewhere random on Earth. Everything else — all 202 hand-picked locations, the live rooms, the weekly board — runs at no monthly cost. Turn the Street View mode off and the running cost of the whole thing is zero.</p>
 
     <h2>The hard part isn’t the features</h2>
 
@@ -145,7 +145,7 @@
 
     <p><strong>Scoring can’t live in the browser.</strong> The client knows where you clicked; it must not know how far off you were until the server says so, or the leaderboard is fiction. So the same location list is embedded in the page for rendering and held on the server for scoring — which creates an invisible contract between two files: they are indexed by position, so reorder one and every score silently becomes wrong. No error, no crash. That rule is written in capitals at the top of the repo instructions, because nothing in the language enforces it.</p>
 
-    <p><strong>And the tests are the gate, not a chore.</strong> 55 unit tests and 19 end-to-end browser tests, and the deploy only runs if both suites pass — automatic deploys are switched off on purpose, so a red suite <em>cannot</em> ship. When code arrives faster than you can read it, tests stop being a quality ritual and become the only honest signal you have left.</p>
+    <p><strong>And the tests are the gate, not a chore.</strong> 338 unit tests and 48 end-to-end browser tests, and the deploy only runs if both suites pass — automatic deploys are switched off on purpose, so a red suite <em>cannot</em> ship. When code arrives faster than you can read it, tests stop being a quality ritual and become the only honest signal you have left.</p>
 
     <h2>What it actually replaced</h2>
 
