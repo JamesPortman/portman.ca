@@ -39,9 +39,12 @@ const PAGES = [
 
 // Every path rewritten to a game, read from vercel.json so the two cannot drift.
 // "/worldcup/(.*)" and "/worldcup" both describe one destination: /worldcup.
+// Only rewrites to another deployment are games; internal ones (/admin/stats →
+// /api/stats) are not pages and stay out of the sitemap.
 const routes = JSON.parse(readFileSync(join(ROOT, 'vercel.json'), 'utf8')).rewrites ?? [];
 const GAMES = [...new Set(
   routes
+    .filter((r) => /^https?:\/\//.test(r.destination))
     .map((r) => r.source.replace(/\/?\(\.\*\)$/, ''))
     .filter((p) => p && !p.startsWith('/writing')),
 )].map((p) => (p === '/worldcup' ? p : `${p}/`));
