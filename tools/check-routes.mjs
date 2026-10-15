@@ -58,7 +58,11 @@ const cases = [
   // index.html selects from the #apps hash
   ['/products',                   '308 -> https://www.portman.ca/#apps'],
   ['/products/',                  '308 -> https://www.portman.ca/#apps'],
+  // any capitalisation: a business card may print Portman.ca/Products
+  ['/Products',                   '308 -> https://www.portman.ca/#apps'],
+  ['/PRODUCTS/',                  '308 -> https://www.portman.ca/#apps'],
   ['/productsx',                  'FALLTHROUGH'],
+  ['/Products/x',                 'FALLTHROUGH'],
 
   // pre-existing behaviour must survive
   ['/writing/terra-incognita',    '308 -> /writing/dont-subscribe-build-it'],

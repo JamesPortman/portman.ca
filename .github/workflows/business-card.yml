@@ -1,0 +1,73 @@
+name: Business-card URLs
+
+# portman.ca/#apps and portman.ca/products are printed on business cards, which
+# can't be reprinted. CI's `npm test` checks the repo on every push; this checks
+# the LIVE site daily, which also catches what the repo can't see — a Vercel
+# domain or redirect setting changed in the dashboard. Failure opens an issue.
+
+on:
+  schedule:
+    - cron: "0 12 * * *" # daily, 08:00 Eastern
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+
+      - name: Check the card URLs on the live site
+        id: live
+        run: |
+          set +e
+          OUT=$(node tools/check-business-card.mjs --live 2>&1)
+          CODE=$?
+          echo "$OUT"
+          {
+            echo "report<<EOF"
+            echo "$OUT"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+          exit $CODE
+
+      - name: Open or update an issue
+        if: failure()
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        # The report reaches the script through the environment, never
+        # interpolated into it, so nothing in it can run as code.
+        env:
+          REPORT: ${{ steps.live.outputs.report }}
+        with:
+          script: |
+            const body = [
+              'A URL printed on the business cards is not working on the live site.',
+              '',
+              '```',
+              process.env.REPORT || '(no report: the check did not run — see the workflow log)',
+              '```',
+              '',
+              'Fix the site so the URL works again. Do not change the check: the cards are already printed.',
+            ].join('\n');
+            const { data: open } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner, repo: context.repo.repo, state: 'open', labels: 'business-card',
+            });
+            if (open.length) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner, repo: context.repo.repo, issue_number: open[0].number, body,
+              });
+            } else {
+              await github.rest.issues.create({
+                owner: context.repo.owner, repo: context.repo.repo,
+                title: 'Business-card URL broken on portman.ca', body, labels: ['business-card'],
+              });
+            }

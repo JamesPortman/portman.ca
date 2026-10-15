@@ -6,6 +6,24 @@ Static personal site on Vercel. No build step — `index.html`, `about/`, `writi
 and `assets/` are served as they are. `middleware.js` gates `/admin` behind HTTP
 Basic auth (`ADMIN_USER` / `ADMIN_PASS`); see [Analytics](#analytics-a-cookie-free-dashboard-at-admin).
 
+## Business-card URLs never change
+
+Two addresses are printed on business cards, which can't be recalled:
+
+| URL | Must |
+|---|---|
+| `portman.ca/#apps` | open the home page on the **Claude Apps** tab |
+| `portman.ca/products` | redirect to `https://www.portman.ca/#apps`, in any capitalisation (`/Products` too) |
+
+The tab is picked by the script at the bottom of `index.html` from
+`location.hash`, so renaming the `apps` category, its nav link or its hash
+breaks the cards silently: the page still loads, on the wrong tab.
+`tools/check-business-card.mjs` runs the page's own script in jsdom and checks
+the redirect; it is part of `npm test`, so CI fails on any change that breaks
+either. `.github/workflows/business-card.yml` runs it against the live site
+daily (`--live`) and opens an issue if a card URL stops working. If it fails,
+fix the site, never the check.
+
 ## The three games are served from this domain
 
 `vercel.json` proxies three separate Vercel projects in under this domain, so all
