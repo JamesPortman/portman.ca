@@ -2,7 +2,8 @@
 // Credentials come from environment variables, never the code:
 //   ADMIN_USER, ADMIN_PASS
 export const config = {
-  matcher: ['/admin', '/admin/:path*'],
+  // /api/stats is reached as /admin/stats (vercel.json); gate the direct path too.
+  matcher: ['/admin', '/admin/:path*', '/api/stats'],
 };
 
 // Constant-time string comparison. The Edge runtime has no node:crypto

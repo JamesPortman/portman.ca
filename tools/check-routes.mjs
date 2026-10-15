@@ -50,6 +50,10 @@ const cases = [
   ['/worldcup/pools/ABC123',      'https://worldcup-pool-ebon.vercel.app/worldcup/pools/ABC123'],
   ['/worldcuppers',               'FALLTHROUGH'],
 
+  // The admin dashboard fetches its numbers here, inside the /admin login.
+  ['/admin/stats',                '/api/stats'],
+  ['/api/track',                  'FALLTHROUGH'],
+
   // pre-existing behaviour must survive
   ['/writing/terra-incognita',    '308 -> /writing/dont-subscribe-build-it'],
   ['/writing/terra-incognita/',   '308 -> /writing/dont-subscribe-build-it/'],

@@ -4,7 +4,7 @@ Built with [Claude Code](https://claude.com/claude-code).
 
 Static personal site on Vercel. No build step — `index.html`, `about/`, `writing/`
 and `assets/` are served as they are. `middleware.js` gates `/admin` behind HTTP
-Basic auth (`ADMIN_USER` / `ADMIN_PASS`).
+Basic auth (`ADMIN_USER` / `ADMIN_PASS`); see [Analytics](#analytics-a-cookie-free-dashboard-at-admin).
 
 ## The three games are served from this domain
 
@@ -97,6 +97,35 @@ would all need allowing first. `npm test` asserts which paths get the headers.
 
 `.vercelignore` keeps `tools/`, `.github/` and repo docs out of the deployment;
 with no build step, anything uploaded is publicly served.
+
+## Analytics: a cookie-free dashboard at /admin
+
+`/admin` (behind the Basic auth in `middleware.js`) has two tabs: **Dashboard**,
+this site's own first-party analytics, and **Google Analytics**, the Looker Studio
+report that was there before.
+
+- `assets/track.js`, loaded by every public page, sends one pageview per load and
+  a few visitor actions: a painting or photograph clicked through to
+  georgianartist.com, one of the apps opened, a screenshot opened full size, an
+  Apps / Media / Paintings tab, an outbound link (host name only), an email link.
+- `api/track.js` stores them in Postgres (`analytics_events`, created on first
+  use). It drops bots, unknown pages, `/admin` and `/api` paths, and any action or
+  target it doesn't recognise. **No cookies and no raw IPs**: visitors are counted
+  by a hash of day + IP + user agent that changes daily. Country and city come
+  from Vercel's edge headers. Google Analytics, which does set cookies, still
+  waits for the consent banner; the banner says so.
+- `api/stats.js` serves the dashboard's numbers. The page fetches it as
+  `/admin/stats` (a rewrite in `vercel.json`) so the browser sends the admin
+  login with it; `middleware.js` also gates `/api/stats` directly, and the
+  handler checks the same credentials again. Shared code is in `api/_lib/`
+  (the leading underscore keeps it from being deployed as a function).
+- "Don't count this browser" on the dashboard sets a `localStorage` flag
+  (`pc_no_track`) that `track.js` checks before sending anything.
+- **Database:** `DATABASE_URL` (or `POSTGRES_URL`), set by connecting a Neon
+  database to the project in Vercel (Storage → Create Database → Neon). Without
+  it, tracking is a silent no-op and the dashboard says it isn't connected.
+- `npm test` runs `tools/check-analytics.mjs`, which drives both handlers
+  against an in-memory Postgres (PGlite).
 
 ## License
 

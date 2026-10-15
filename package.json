@@ -3,9 +3,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node tools/check-routes.mjs"
+    "test": "node tools/check-routes.mjs && node tools/check-analytics.mjs"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "0.5.10",
     "@vercel/routing-utils": "^5.0.5"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "1.1.0"
   }
 }
