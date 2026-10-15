@@ -92,7 +92,7 @@ which is why the pool routes API calls through `apiUrl()` in its own `lib/site.t
 own pages. Its `source` excludes `/terra-incognita/`, `/no-exit/`,
 `/beyond-doubt/` and `/worldcup`: each app sends its own headers (some stricter
 than these), and it is the app that knows what it needs. There is no
-Content-Security-Policy yet — GA, the Looker embed on `/admin` and inline scripts
+Content-Security-Policy yet — GA and inline scripts
 would all need allowing first. `npm test` asserts which paths get the headers.
 
 `.vercelignore` keeps `tools/`, `.github/` and repo docs out of the deployment;
@@ -100,9 +100,9 @@ with no build step, anything uploaded is publicly served.
 
 ## Analytics: a cookie-free dashboard at /admin
 
-`/admin` (behind the Basic auth in `middleware.js`) has two tabs: **Dashboard**,
-this site's own first-party analytics, and **Google Analytics**, the Looker Studio
-report that was there before.
+`/admin` (behind the Basic auth in `middleware.js`) is this site's own
+first-party analytics dashboard. It replaced an embedded Looker Studio (GA4)
+report; Google Analytics itself still runs on the site behind the consent banner.
 
 - `assets/track.js`, loaded by every public page, sends one pageview per load and
   a few visitor actions: a painting or photograph clicked through to

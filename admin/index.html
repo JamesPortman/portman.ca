@@ -23,16 +23,8 @@
   .bar h1 span{color:var(--accent);}
   .bar a{font-size:13px;color:var(--ink-soft);text-decoration:none;letter-spacing:0.04em;}
   .bar a:hover{color:var(--accent);}
-  .tabs{display:flex;gap:4px;}
-  .tabs button{font:500 13px var(--sans);color:var(--ink-soft);background:none;border:1px solid transparent;border-radius:6px;padding:6px 12px;cursor:pointer;}
-  .tabs button[aria-selected="true"]{color:var(--accent);border-color:var(--line);background:var(--paper);}
   .hidden{display:none !important;}
 
-  /* Google Analytics (Looker Studio) tab */
-  #ga{flex:1;min-height:0;display:flex;}
-  #ga iframe{width:100%;flex:1;min-height:80vh;border:0;display:block;}
-
-  /* Dashboard tab */
   #dash{max-width:1040px;width:100%;margin:0 auto;padding:28px 16px 64px;}
   .topbar{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px;}
   .topbar h2{font-family:var(--serif);font-weight:500;font-size:26px;}
@@ -82,14 +74,10 @@
 <body>
   <header class="bar">
     <h1>portman.ca <span>· analytics</span></h1>
-    <nav class="tabs" role="tablist">
-      <button role="tab" id="tab-dash" aria-selected="true" aria-controls="dash">Dashboard</button>
-      <button role="tab" id="tab-ga" aria-selected="false" aria-controls="ga">Google Analytics</button>
-    </nav>
     <a href="/">← back to site</a>
   </header>
 
-  <main id="dash" role="tabpanel" aria-labelledby="tab-dash">
+  <main id="dash">
     <div id="status" class="msg hidden"></div>
     <div id="content" class="hidden">
       <div class="topbar">
@@ -156,8 +144,6 @@
     </div>
   </main>
 
-  <section id="ga" class="hidden" role="tabpanel" aria-labelledby="tab-ga"
-    data-src="https://lookerstudio.google.com/embed/reporting/5aab0fca-1e34-4624-bd10-cf028d18456e/page/kIV1C"></section>
 
 <script src="/admin/vendor/chart-4.4.1.umd.min.js"></script>
 <script src="/admin/admin.js?v=1"></script>
