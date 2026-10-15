@@ -54,7 +54,7 @@ const cases = [
   ['/admin/stats',                '/api/stats'],
   ['/api/track',                  'FALLTHROUGH'],
 
-  // /products has no page; it lands on the home page's Claude Apps tab, which
+  // /products has no page; it lands on the home page's Apps tab, which
   // index.html selects from the #apps hash
   ['/products',                   '308 -> https://www.portman.ca/#apps'],
   ['/products/',                  '308 -> https://www.portman.ca/#apps'],

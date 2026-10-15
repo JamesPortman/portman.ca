@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>James Portman — Claude Apps, Media, Paintings</title>
+<title>James Portman — Apps, Media, Paintings</title>
 <meta name="description" content="A one-person studio: web apps built with Claude, the Baylight: After Image microdrama and novels, and original Georgian Bay paintings." />
-<meta property="og:title" content="James Portman — Claude Apps, Media, Paintings" />
+<meta property="og:title" content="James Portman — Apps, Media, Paintings" />
 <meta property="og:description" content="Web apps built with Claude, the Baylight microdrama and novels, and original Georgian Bay paintings." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://www.portman.ca/" />
@@ -13,7 +13,7 @@
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="James Portman — Claude Apps, Media, Paintings" />
+<meta name="twitter:title" content="James Portman — Apps, Media, Paintings" />
 <meta name="twitter:description" content="Web apps built with Claude, the Baylight microdrama and novels, and original Georgian Bay paintings." />
 <meta name="twitter:image" content="https://www.portman.ca/assets/og-image.png" />
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
@@ -92,7 +92,7 @@
   <div class="wrap">
     <a class="brand" href="/">James Portman</a>
     <div class="links">
-      <a href="#apps" data-cat="apps">Claude Apps</a>
+      <a href="#apps" data-cat="apps">Apps</a>
       <a href="#media" data-cat="media">Media</a>
       <a href="#paintings" data-cat="paintings">Paintings</a>
       <a href="/writing/">Writing</a>
@@ -101,7 +101,7 @@
   </div>
 </nav>
 
-<h1 class="sr-only">James Portman — Claude apps, media, and paintings</h1>
+<h1 class="sr-only">James Portman — apps, media, and paintings</h1>
 
 <section id="work">
   <div class="wrap">
@@ -307,7 +307,7 @@
   })();
 </script>
 <script>
-  // Category tabs. Claude Apps is the landing view; /#media and /#paintings filter to those.
+  // Category tabs. Apps is the landing view; /#media and /#paintings filter to those.
   (function(){
     var cats=['apps','media','paintings'];
     var alias={video:'media',novels:'media'}; // old links keep working
@@ -336,7 +336,7 @@
     function current(){
       var h=location.hash.replace('#','');
       h=alias[h]||h;
-      return cats.indexOf(h)>-1?h:DEFAULT; // no hash lands on Claude Apps
+      return cats.indexOf(h)>-1?h:DEFAULT; // no hash lands on Apps
     }
 
     apply(current());

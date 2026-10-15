@@ -13,7 +13,7 @@
     email_click: 'Email link',
   };
   var APP_NAMES = { 'terra-incognita': 'Terra Incognita', 'no-exit': 'No Exit', 'beyond-doubt': 'Beyond Doubt', 'worldcup': 'World Cup pool' };
-  var SECTION_NAMES = { apps: 'Claude Apps', media: 'Media', paintings: 'Paintings' };
+  var SECTION_NAMES = { apps: 'Apps', media: 'Media', paintings: 'Paintings' };
 
   function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]; }); }
 
