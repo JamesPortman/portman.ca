@@ -22,6 +22,8 @@
       "destination": "/writing/dont-subscribe-build-it/",
       "permanent": true
     },
+    { "source": "/products", "destination": "https://www.portman.ca/#apps", "permanent": true },
+    { "source": "/products/", "destination": "https://www.portman.ca/#apps", "permanent": true },
     { "source": "/terra-incognita", "destination": "/terra-incognita/", "permanent": true },
     { "source": "/no-exit", "destination": "/no-exit/", "permanent": true },
     { "source": "/beyond-doubt", "destination": "/beyond-doubt/", "permanent": true }

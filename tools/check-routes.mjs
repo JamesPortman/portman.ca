@@ -54,6 +54,12 @@ const cases = [
   ['/admin/stats',                '/api/stats'],
   ['/api/track',                  'FALLTHROUGH'],
 
+  // /products has no page; it lands on the home page's Claude Apps tab, which
+  // index.html selects from the #apps hash
+  ['/products',                   '308 -> https://www.portman.ca/#apps'],
+  ['/products/',                  '308 -> https://www.portman.ca/#apps'],
+  ['/productsx',                  'FALLTHROUGH'],
+
   // pre-existing behaviour must survive
   ['/writing/terra-incognita',    '308 -> /writing/dont-subscribe-build-it'],
   ['/writing/terra-incognita/',   '308 -> /writing/dont-subscribe-build-it/'],
