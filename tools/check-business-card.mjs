@@ -1,7 +1,7 @@
 // Guards the addresses printed on James's business cards. They cannot be
 // reprinted, so these URLs must keep working, forever, exactly as they do now:
 //
-//   portman.ca/#apps     the home page, opened on the Claude Apps tab
+//   portman.ca/#apps     the home page, opened on the Apps tab
 //   portman.ca/products  redirects to https://www.portman.ca/#apps, in any
 //                        capitalisation (a card may read Portman.ca/Products;
 //                        the domain is case-blind, the path is not)
@@ -49,7 +49,7 @@ if (LIVE) {
   }
 }
 
-// 1. /#apps opens the Claude Apps tab.
+// 1. /#apps opens the Apps tab.
 async function homeHtml() {
   if (!LIVE) return readFileSync(new URL('../index.html', import.meta.url), 'utf8');
   const res = await fetch('https://www.portman.ca/', { redirect: 'follow' });
@@ -72,9 +72,9 @@ const doc = dom.window.document;
 
 const tab = doc.querySelector('nav a[href="#apps"]');
 check(!!tab, 'nav has a link to #apps');
-check(tab?.textContent.trim() === 'Claude Apps', '#apps link is labelled "Claude Apps"', `got "${tab?.textContent.trim()}"`);
+check(tab?.textContent.trim() === 'Apps', '#apps link is labelled "Apps"', `got "${tab?.textContent.trim()}"`);
 check(doc.body.getAttribute('data-cat') === 'apps', '#apps selects the apps category', `body data-cat="${doc.body.getAttribute('data-cat')}"`);
-check(tab?.getAttribute('aria-current') === 'true', 'Claude Apps tab is marked current');
+check(tab?.getAttribute('aria-current') === 'true', 'Apps tab is marked current');
 
 const projects = [...doc.querySelectorAll('.proj')];
 const shown = projects.filter((p) => !p.hidden);

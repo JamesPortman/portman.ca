@@ -12,7 +12,7 @@ Two addresses are printed on business cards, which can't be recalled:
 
 | URL | Must |
 |---|---|
-| `portman.ca/#apps` | open the home page on the **Claude Apps** tab |
+| `portman.ca/#apps` | open the home page on the **Apps** tab |
 | `portman.ca/products` | redirect to `https://www.portman.ca/#apps`, in any capitalisation (`/Products` too) |
 
 The tab is picked by the script at the bottom of `index.html` from

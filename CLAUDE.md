@@ -5,7 +5,7 @@
 `portman.ca/#apps` and `portman.ca/products` are printed on James's business
 cards. They must keep working exactly as they do now, permanently:
 
-- `/#apps` opens the home page on the **Claude Apps** tab. Never rename the
+- `/#apps` opens the home page on the **Apps** tab. Never rename the
   `apps` category, its `#apps` nav link, or the hash the tab script in
   `index.html` reads. Reordering, adding or removing apps is fine.
 - `/products` (any capitalisation, with or without a trailing slash) redirects
