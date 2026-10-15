@@ -27,6 +27,7 @@
     { "source": "/beyond-doubt", "destination": "/beyond-doubt/", "permanent": true }
   ],
   "rewrites": [
+    { "source": "/admin/stats", "destination": "/api/stats" },
     {
       "source": "/terra-incognita/(.*)",
       "destination": "https://terra-incognita-amber.vercel.app/$1"
