@@ -91,7 +91,7 @@
   function load(){
     return fetch('/admin/stats?days=' + $('range').value, { cache: 'no-store' }).then(function(res){
       if (res.status === 503) {
-        showStatus('<h2>Database not connected yet</h2><p>The dashboard needs a Postgres database. In Vercel, open the <code>portman-ca</code> project → <strong>Storage</strong> → <strong>Create Database</strong> → <strong>Neon</strong>, connect it to the project, then redeploy. Visits start counting from then; the Google Analytics tab works in the meantime.</p>');
+        showStatus('<h2>Database not connected yet</h2><p>The dashboard needs a Postgres database. In Vercel, open the <code>portman-ca</code> project → <strong>Storage</strong> → <strong>Create Database</strong> → <strong>Neon</strong>, connect it to the project, then redeploy. Visits start counting from then.</p>');
         return;
       }
       if (!res.ok) { showStatus('<h2>Couldn’t load stats</h2><p>The stats endpoint answered ' + res.status + '. Try refreshing.</p>'); return; }
@@ -158,31 +158,10 @@
     renderExclusion();
   });
 
-  // Tabs. The Looker Studio report only loads when its tab is first opened.
-  function showTab(which){
-    var ga = which === 'ga';
-    $('tab-dash').setAttribute('aria-selected', String(!ga));
-    $('tab-ga').setAttribute('aria-selected', String(ga));
-    $('dash').classList.toggle('hidden', ga);
-    $('ga').classList.toggle('hidden', !ga);
-    if (ga && !$('ga').firstChild) {
-      var f = document.createElement('iframe');
-      f.title = 'portman.ca Google Analytics report';
-      f.src = $('ga').getAttribute('data-src');
-      f.setAttribute('sandbox', 'allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox');
-      f.setAttribute('allow', 'fullscreen');
-      $('ga').appendChild(f);
-    }
-    try { history.replaceState(null, '', ga ? '#ga' : location.pathname); } catch (_) {}
-  }
-  $('tab-dash').addEventListener('click', function(){ showTab('dash'); });
-  $('tab-ga').addEventListener('click', function(){ showTab('ga'); });
-
   $('range').addEventListener('change', load);
   $('refresh').addEventListener('click', load);
   $('more').addEventListener('click', function(){ showAll = !showAll; renderRecent(); });
 
   renderExclusion();
-  if (location.hash === '#ga') showTab('ga');
   load();
 })();
