@@ -48,15 +48,27 @@
   }
 
   // Days with no traffic come back missing; fill them so the x-axis doesn't skip.
+  // The server sends six extra days before the range, which feed the first
+  // points of the 7-day average; they are dropped before plotting.
   function fillDays(byDay, days, now){
-    if (!days) return byDay;
     var map = {}; byDay.forEach(function(d){ map[d.day] = d; });
-    var out = [];
-    for (var i = days - 1; i >= 0; i--) {
-      var day = new Date(now - i * 864e5).toISOString().slice(0, 10);
-      out.push(map[day] || { day: day, views: 0, visitors: 0 });
+    var count = days + 6;
+    if (!days) { // all time: from the first recorded day to today
+      if (!byDay.length) return [];
+      count = Math.round((Date.parse(new Date(now).toISOString().slice(0, 10)) - Date.parse(byDay[0].day)) / 864e5) + 1;
     }
-    return out;
+    var out = [];
+    for (var i = count - 1; i >= 0; i--) {
+      var day = new Date(now - i * 864e5).toISOString().slice(0, 10);
+      var r = map[day] || { day: day, views: 0, visitors: 0 };
+      out.push({ day: r.day, views: r.views, visitors: r.visitors });
+    }
+    // Each day's average covers that day and up to six before it.
+    out.forEach(function(d, i){
+      var win = out.slice(Math.max(0, i - 6), i + 1);
+      d.avg7 = Math.round(win.reduce(function(n, x){ return n + x.visitors; }, 0) / win.length * 10) / 10;
+    });
+    return days ? out.slice(6) : out;
   }
 
   function targetLabel(e){
@@ -127,7 +139,8 @@
       type: 'line',
       data: { labels: series.map(function(x){ return x.day; }), datasets: [
         { label: 'Visitors', data: series.map(function(x){ return x.visitors; }), borderColor: '#B4502A', backgroundColor: 'rgba(180,80,42,.12)', fill: true, tension: .3, pointRadius: 2 },
-        { label: 'Views', data: series.map(function(x){ return x.views; }), borderColor: '#5C574F', borderDash: [4, 4], fill: false, tension: .3, pointRadius: 0 }
+        { label: 'Views', data: series.map(function(x){ return x.views; }), borderColor: '#5C574F', borderDash: [4, 4], fill: false, tension: .3, pointRadius: 0 },
+        { label: 'Visitors, 7-day average', data: series.map(function(x){ return x.avg7; }), borderColor: '#D62828', borderWidth: 2.5, fill: false, tension: .3, pointRadius: 0 }
       ]},
       options: { maintainAspectRatio: false, plugins: { legend: { labels: { color: '#5C574F', boxWidth: 12 } } },
         scales: { x: { ticks: Object.assign({ maxTicksLimit: 8 }, axis), grid: grid },
