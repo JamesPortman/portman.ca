@@ -142,6 +142,8 @@ export async function getStats(query, days, now = new Date()) {
   const span = days * 864e5;
   const since = new Date(days > 0 ? now.getTime() - span : 0);
   const prevSince = new Date(days > 0 ? since.getTime() - span : 0);
+  // The chart's 7-day average needs the six days before the range too.
+  const trendSince = new Date(days > 0 ? since.getTime() - 6 * 864e5 : 0);
   const PV = "kind = 'pageview'";
   const ACT = "kind = 'action'";
   const n = (rows) => Number(rows[0]?.c ?? 0);
@@ -160,7 +162,7 @@ export async function getStats(query, days, now = new Date()) {
     query(`SELECT COUNT(*) AS c FROM analytics_events WHERE ts >= $1 AND ts < $2 AND ${ACT}`, [prevSince, since]),
     query(`SELECT to_char(ts AT TIME ZONE 'UTC', 'YYYY-MM-DD') AS day,
                   COUNT(*) FILTER (WHERE ${PV}) AS views, COUNT(DISTINCT visitor) AS visitors
-           FROM analytics_events WHERE ts >= $1 GROUP BY 1 ORDER BY 1`, [since]),
+           FROM analytics_events WHERE ts >= $1 GROUP BY 1 ORDER BY 1`, [trendSince]),
     query(`SELECT path, COUNT(*) AS c FROM analytics_events WHERE ts >= $1 AND ${PV} GROUP BY path ORDER BY c DESC LIMIT 10`, [since]),
     query(`SELECT target AS section, COUNT(*) AS c FROM analytics_events WHERE ts >= $1 AND action = 'section_open' GROUP BY target ORDER BY c DESC`, [since]),
     query(`SELECT action, COUNT(*) AS c FROM analytics_events WHERE ts >= $1 AND ${ACT} GROUP BY action ORDER BY c DESC`, [since]),
