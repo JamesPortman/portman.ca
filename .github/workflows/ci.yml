@@ -16,7 +16,7 @@ jobs:
           # build-sitemap.mjs dates pages from their last commit, so it needs
           # full history (see gallery-check.yml for the long version).
           fetch-depth: 0
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@v7.1.0
         with:
           node-version: 22
           cache: npm
